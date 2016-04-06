@@ -1,6 +1,5 @@
 package net.keshen.fishgame.componets;
 
-import net.keshen.base.basecomponet.GameConstant;
 import net.keshen.base.drawable.DrawableAdapter;
 import net.keshen.base.graphics.Bitmap;
 import net.keshen.base.graphics.Canvas;
@@ -20,18 +19,23 @@ public class Cannon extends DrawableAdapter{
 	 */
 	private static final long serialVersionUID = 6730846566702756181L;
 	private Bitmap[] cannoImage;
-	
+	 
 	private int currentImageId;
 	private int cannoRotate_x;//旋转点的x坐标
 	private int cannoRotate_y;//旋转点的y坐标
 	
+	private float x;
+	private float y;
+	
+	public Cannon(){
+		
+	}
+	
 	public Cannon(Bitmap[] cannoImage){
 		this.cannoImage = cannoImage;
 		this.currentImageId = 0;
-		
-		cannoRotate_x = GameConstant.getWidth()/2;
-		cannoRotate_y = GameConstant.getHeight() - getPicHeight()/2;
 	}
+	
 	
 	
 	public Bitmap getCurrentPic() {
@@ -52,10 +56,12 @@ public class Cannon extends DrawableAdapter{
 		canvas.draw(getCurrentPic(), getMatrix(), paint);
 	}
 
+	
 	public Matrix getPicMatrix() {
 		return getMatrix();
 	}
 
+	
 	public String getDrawableName() {
 		return null;
 	}
@@ -88,5 +94,19 @@ public class Cannon extends DrawableAdapter{
 		this.cannoRotate_y = cannoRotate_y;
 	}
 
-	
+	public float getX() {
+		return x;
+	}
+
+	public void setX(float x) {
+		this.x = x;
+	}
+
+	public float getY() {
+		return y;
+	}
+
+	public void setY(float y) {
+		this.y = y;
+	}
 }
