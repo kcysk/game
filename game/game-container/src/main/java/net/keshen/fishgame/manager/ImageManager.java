@@ -2,12 +2,15 @@ package net.keshen.fishgame.manager;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.xmlpull.v1.XmlPullParser;
+
 import net.keshen.base.graphics.Bitmap;
-import net.keshen.fishgame.constant.FishGameConstant;
+import net.keshen.fishgame.enumration.FishType;
 import net.keshen.fishgame.info.ImageConfig;
 import net.keshen.fishgame.info.ImageConfig.ActImageConfig;
 import net.keshen.fishgame.utils.StringUtils;
@@ -15,8 +18,6 @@ import net.keshen.fishgame.utils.XmlUtils;
 import net.keshen.logger.Logger;
 import net.keshen.logger.LoggerManager;
 import net.keshen.util.ImageUtils;
-
-import org.xmlpull.v1.XmlPullParser;
 
 /**
  * 图片管理器
@@ -27,8 +28,49 @@ import org.xmlpull.v1.XmlPullParser;
 public class ImageManager {
 	
 	private Logger logger = LoggerManager.getLogger(ImageManager.class);
+//	private Map<FishType,String> fishActConfigMap ;
 	
 	private static ImageManager imageManager;
+	
+	/**
+	 * 初始化所有图片
+	 */
+	public void init(){
+		initFishActBitmap();
+	}
+	
+	//初始化鱼动作图片
+	private void initFishActBitmap(){
+		List<String> actConfigPath = XmlManager.getFishActConfigPath();
+		Map<String,Bitmap> 
+		for (String path : actConfigPath) {
+			getBitmapsByImageConfig(path);
+		}
+	}
+	
+	private void initNetBitmap(){
+
+	}
+	
+	private void initFireBitmap(){
+		
+	}
+	
+	private void initGoldBitmap(){
+		
+	}
+	
+	private void initSoreBitmap(){
+		
+	}
+	
+	private void initBulletBitmap(){
+
+	}
+	
+	private void initRippleBitmap(){
+
+	}
 	
 	/**
 	 * 获取ImageManager实例
@@ -51,8 +93,8 @@ public class ImageManager {
 	 * @return
 	 */
 	public Map<String,Bitmap> getBitmapsByImageConfig(String fileName){
-		ImageConfig config = createImageConfig(fileName, FishGameConstant.CONFIG_ENCODE);
-		return getBitmapsByActConfigs((List<ActImageConfig>) config.getAllActs().values());
+		ImageConfig config = createImageConfig(fileName, System.getProperty("encode"));
+		return getBitmapsByActConfigs( config.getAllActs().values());
 	}
 	/**
 	 * 
@@ -70,10 +112,11 @@ public class ImageManager {
 			XmlPullParser xml = XmlUtils.getXmlPullParser(fileName, encode);
 			while(true){
 				XmlUtils.goTagByName(xml, "key");
-				if("textrue".equals(XmlUtils.getCurrentTagValue(xml))){
+				String currentTagValue = XmlUtils.getCurrentTagValue(xml);
+				if("texture".equals(currentTagValue)){
 					getSrcImageInfo(xml, imageConfig);
 				}
-				else if("frames".equals(XmlUtils.getCurrentTagValue(xml))){
+				else if("frames".equals(currentTagValue)){
 					XmlUtils.goTagByName(xml, "dict");
 					getCutImageConfig(xml,imageConfig);
 					break;
@@ -96,24 +139,24 @@ public class ImageManager {
 		XmlUtils.goTagByName(xml, "key");
 		String attribute = XmlUtils.getCurrentTagValue(xml);
 		if("width".equals(attribute)){
-			XmlUtils.goTagByName(xml, "Integer");
+			XmlUtils.goTagByName(xml, "integer");
 			int srcWidth = Integer.parseInt(XmlUtils.getCurrentTagValue(xml));
 			config.setSrcWidth(srcWidth);
 		}
 		else if("height".equals(attribute)){
-			XmlUtils.goTagByName(xml, "Integer");
+			XmlUtils.goTagByName(xml, "integer");
 			int srcHeight = Integer.parseInt(XmlUtils.getCurrentTagValue(xml));
 			config.setSrcHeight(srcHeight);
 		}
 		XmlUtils.goTagByName(xml, "key");
 		attribute = XmlUtils.getCurrentTagValue(xml);
 		if("width".equals(attribute)){
-			XmlUtils.goTagByName(xml, "Integer");
+			XmlUtils.goTagByName(xml, "integer");
 			int srcWidth = Integer.parseInt(XmlUtils.getCurrentTagValue(xml));
 			config.setSrcWidth(srcWidth);
 		}
 		else if("height".equals(attribute)){
-			XmlUtils.goTagByName(xml, "Integer");
+			XmlUtils.goTagByName(xml, "integer");
 			int srcHeight = Integer.parseInt(XmlUtils.getCurrentTagValue(xml));
 			config.setSrcHeight(srcHeight);
 		}
@@ -146,19 +189,19 @@ public class ImageManager {
 	private void getActImageConfig(XmlPullParser xml,ActImageConfig actConfig){
 		try {
 			//X坐标
-			XmlUtils.goTagByName(xml, "Integer");
+			XmlUtils.goTagByName(xml, "integer");
 			int x = Integer.parseInt(XmlUtils.getCurrentTagValue(xml));
 			actConfig.setX(x);
 			//y坐标
-			XmlUtils.goTagByName(xml, "Integer");
+			XmlUtils.goTagByName(xml, "integer");
 			int y = Integer.parseInt(XmlUtils.getCurrentTagValue(xml));
 			actConfig.setY(y);
 			//图片在源图片中的跨度
-			XmlUtils.goTagByName(xml, "Integer");
+			XmlUtils.goTagByName(xml, "integer");
 			int width = Integer.parseInt(XmlUtils.getCurrentTagValue(xml));
 			actConfig.setWidth(width);
 			//在原图片中高度
-			XmlUtils.goTagByName(xml, "Integer");
+			XmlUtils.goTagByName(xml, "integer");
 			int height = Integer.parseInt(XmlUtils.getCurrentTagValue(xml));
 			actConfig.setHeight(height);
 			//offsetX
@@ -170,11 +213,11 @@ public class ImageManager {
 			double offsetY = Double.parseDouble(XmlUtils.getCurrentTagValue(xml));
 			actConfig.setOffsetY(offsetY);
 			//图片实际的宽度
-			XmlUtils.goTagByName(xml, "Integer");
+			XmlUtils.goTagByName(xml, "integer");
 			int originalWidth = Integer.parseInt(XmlUtils.getCurrentTagValue(xml));
 			actConfig.setOriginalWidth(originalWidth);
 			//
-			XmlUtils.goTagByName(xml, "Integer");
+			XmlUtils.goTagByName(xml, "integer");
 			int originalHeight = Integer.parseInt(XmlUtils.getCurrentTagValue(xml));
 			actConfig.setOriginalHeight(originalHeight);
 			
@@ -210,12 +253,12 @@ public class ImageManager {
 	
 	/**
 	 * 根据一组配置信息解析对应的图片
-	 * @param actConfigs
+	 * @param collection
 	 * @return
 	 */
-	public Map<String,Bitmap> getBitmapsByActConfigs(List<ActImageConfig> actConfigs){
+	public Map<String,Bitmap> getBitmapsByActConfigs(Collection<ActImageConfig> collection){
 		Map<String,Bitmap> actImages = new HashMap<String, Bitmap>();
-		for (ActImageConfig actConfig : actConfigs) {
+		for (ActImageConfig actConfig : collection) {
 			String fileName = actConfig.getConfig().getSrcFileName();
 			Bitmap bitmap = getBitmapByActImageConfig(actConfig, 
 					ImageUtils.getImageByAssert(fileName));

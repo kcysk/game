@@ -2,6 +2,7 @@ package net.keshen.fishgame.utils;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import net.keshen.fishgame.constant.FishGameConstant;
 
@@ -84,4 +85,18 @@ public final class XmlUtils {
 		return null;
 	}
 	
+	public static boolean isOver(XmlPullParser xml){
+		try {
+			if(xml.next()==XmlPullParser.END_DOCUMENT){
+				return true;
+			}else{
+				return false;
+			}
+		} catch (XmlPullParserException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return true;
+	}
 }

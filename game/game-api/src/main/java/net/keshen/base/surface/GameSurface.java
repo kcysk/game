@@ -276,7 +276,7 @@ public class GameSurface extends JPanel{
 	/**
 	 * 画布,其实就是绘制"一大幅"图片
 	 * @author shenke
-	 *
+	 *verilog
 	 */
 	static class JCanvas implements Canvas{
 		private static Bitmap canvasBit = null;

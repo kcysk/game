@@ -57,7 +57,7 @@ public class FishRunThread extends Thread {
 	
 	//判断鱼是否被捕捉
 	private boolean isCatch(Fish fish){
-		//TODO
+		
 		return false;
 	}
 	

@@ -90,7 +90,7 @@ public final class ImageUtils {
 	public static final BufferedImage getImageByAssert(String fileName){
 		
 		try {
-			return ImageIO.read(new File(fileName));
+			return ImageIO.read(new File(fileName+".png"));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

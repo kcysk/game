@@ -10,11 +10,13 @@ import net.keshen.base.surface.GameSurface;
 import net.keshen.fishgame.componets.ButtonAdapter;
 import net.keshen.fishgame.manager.ComponetsManager;
 import net.keshen.fishgame.manager.LayoutManager;
+import net.keshen.logger.LoggerManager;
 
 public class Test extends JFrame{
 
 	
 	public static void main(String[] args) throws Exception {
+		LoggerManager.init();
 		GameConstant.setWidth(800);
 		GameConstant.setHeight(480);
 		ComponetsManager componetsManager = ComponetsManager.getComponetsManager();

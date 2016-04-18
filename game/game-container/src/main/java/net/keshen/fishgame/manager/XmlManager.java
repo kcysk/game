@@ -1,15 +1,17 @@
 package net.keshen.fishgame.manager;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
+import org.xmlpull.v1.XmlPullParser;
+
+import net.keshen.base.graphics.Bitmap;
 import net.keshen.fishgame.constant.FishGameConstant;
 import net.keshen.fishgame.info.FishInfo;
 import net.keshen.fishgame.utils.StringUtils;
 import net.keshen.fishgame.utils.XmlUtils;
-
-import org.xmlpull.v1.XmlPullParser;
 
 
 /**
@@ -94,10 +96,35 @@ public class XmlManager {
 		}
 		return fishInfoMap;
 	}
+	
+	/**
+	 * 获取鱼的动作的配置路径先关信息
+	 * @return
+	 */
+	public static List<String> getFishActConfigPath(){
+		return Arrays.asList(getFishConfigPath().get("fishActConfig").split(";"));
+	}
+	
 	public static void main(String[] args) {
-		Map<String, FishInfo> info = getFishInfo();
-		for (Entry<String, FishInfo> string : info.entrySet()) {
-			System.out.println(string.getKey());
+//		Map<String, FishInfo> info = getFishInfo();
+//		for (Entry<String, FishInfo> string : info.entrySet()) {
+//			System.out.println(string.getKey());
+//		}
+		Map<String,String> configPathMap = getFishConfigPath();
+		for (String str : configPathMap.keySet()) {
+			if("fishActConfig".equals(str)){
+				
+				for (String str2 : configPathMap.get(str).split(";")) {
+					Map<String,Bitmap> maps = ImageManager.getImageManager().getBitmapsByImageConfig(str2);
+					for (String string : maps.keySet()) {
+						System.out.println(string);
+					}
+				}
+			}else if("fishInfoConfig".equals(str)){
+				
+			}
+		
 		}
 	}
 }
+

@@ -19,7 +19,6 @@ public class CannoManager {
 	
 	private Cannon currentCannon;
 	private ImageManager manager = ImageManager.getImageManager();
-	private static int MAX_VERSION ;
 	
 	public CannoManager(){
 		//init();

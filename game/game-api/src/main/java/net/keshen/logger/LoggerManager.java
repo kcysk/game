@@ -1,6 +1,6 @@
 package net.keshen.logger;
 
-import java.util.HashMap;
+import java.io.File;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
@@ -8,6 +8,7 @@ import net.keshen.logger.jdk.JdkLoggerAdapter;
 import net.keshen.logger.log4j.Log4jLoggerAdapter;
 import net.keshen.logger.sl4j.Sl4jLoggerAdapter;
 import net.keshen.logger.support.FailsafeLogger;
+import net.keshen.util.LoadLogProperties;
 
 /**
  * 日志输出器管理器
@@ -16,11 +17,12 @@ import net.keshen.logger.support.FailsafeLogger;
  */
 public class LoggerManager {
 	
-	private volatile static LoggerAdapter LOGGER_ADAPTER;
+	private volatile static LoggerAdapter LOGGER_ADAPTER = new Log4jLoggerAdapter();
 	
 	private static final ConcurrentMap<String,FailsafeLogger> LOGGERS = new ConcurrentHashMap<String, FailsafeLogger>();
 	
 	static{
+		LoadLogProperties.getLoggerProperties();
 		String key = System.getProperty("net.keshen.logger");
 		if("log4j".equals(key)){
 			setLoggerAdapter(new Log4jLoggerAdapter());
@@ -31,6 +33,11 @@ public class LoggerManager {
 		else if("jdk".equals(key)){
 			setLoggerAdapter(new JdkLoggerAdapter());
 		}
+	}
+	
+	public static void init(){
+		new LoggerManager();
+		//初始化loggger file
 	}
 	
 	private LoggerManager(){

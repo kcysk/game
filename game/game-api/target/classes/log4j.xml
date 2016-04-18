@@ -39,7 +39,7 @@
     <!-- 输出日志到文件 -->  
     <appender name="file"  
         class="org.apache.log4j.FileAppender">  
-        <param name="File" value="G:/logs/file.log"></param>  
+        <param name="File" value="F:/logs/file.log"></param>  
         <param name="Threshold" value="info"></param>  
         <layout class="org.apache.log4j.PatternLayout">  
             <param name="ConversionPattern" value="[%d{yyyy-MM-dd HH:mm:ss\} %-5p] [%t] {%c:%L}-%m%n"></param>  

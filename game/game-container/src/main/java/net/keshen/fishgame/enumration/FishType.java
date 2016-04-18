@@ -42,6 +42,7 @@ public enum FishType {
 	WHALE("fish16"),
 	/** 青蛙*/
 	FROG("fish17");
+	
 	private String name;
 
 	
@@ -57,4 +58,45 @@ public enum FishType {
 		this.name = name;
 	}
 	
+	public static FishType getType(String name){
+		switch (name) {
+		case "fish01":
+			return MACKEREL;
+		case "fish02":
+			return SNAPPER;
+		case "fish03":
+			return GREENFISH;
+		case "fish04":
+			return SQUID;
+		case "fish05":
+			return CLOWNFISH;
+		case "fish06":
+			return TRAFFICLIGHTSFISH;
+		case "fish07":
+			return BLUEFISH;
+		case "fish08":
+			return TORTOISE;
+		case "fish09":
+			return LANTERNFISH;
+		case "fish10":
+			return SKATE;
+		case "fish11":
+			return MERMAID1;
+		case "fish12":
+			return MERMAID2;
+		case "fish13":
+			return SHARK;
+		case "fish14":
+			return HEIM;
+		case "fish15":
+			return SWORDFISH;
+		case "fish16":
+			return WHALE;
+		case "fish17":
+			return FROG;
+		default:
+			return null;
+		}
+	}
+
 }
