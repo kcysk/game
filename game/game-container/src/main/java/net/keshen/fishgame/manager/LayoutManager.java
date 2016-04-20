@@ -64,7 +64,7 @@ public class LayoutManager {
 		Bottom bottom = componetsManager.getBottom();
 		bottom.setLayout_x(GameConstant.getWidth() / 2 - bottom.getPicWidth() / 2);
 		bottom.setLayout_y(GameConstant.getHeight() - bottom.getPicHeight() / 2);
-		bottom.getPicMatrix().setTranslate((int)bottom.getLayout_x(), (int)bottom.getLayout_y());
+		bottom.getPicMatrix().setTranslate(bottom.getLayout_x(), bottom.getLayout_y());
 	}
 
 	// 设置大炮的型号调整按钮的位置
@@ -72,22 +72,22 @@ public class LayoutManager {
 		Componet addButton = componetsManager.getAddButton();
 		addButton.setLayout_x(componetsManager.getBottom().getLayout_x() + componetsManager.getBottom().getPicWidth());
 		addButton.setLayout_y(componetsManager.getBottom().getLayout_y());
-		addButton.getPicMatrix().setTranslate((int)addButton.getLayout_x(), (int)addButton.getLayout_y());
+		addButton.getPicMatrix().setTranslate(addButton.getLayout_x(), addButton.getLayout_y());
 	}
 
 	public void setCannonVersionRed() {
 		Componet redButton = componetsManager.getRedButton();
 		redButton.setLayout_x(componetsManager.getBottom().getLayout_x() - redButton.getPicWidth());
 		redButton.setLayout_y(componetsManager.getBottom().getLayout_y());
-		redButton.getPicMatrix().setTranslate((int)redButton.getLayout_x(), (int)redButton.getLayout_y());
+		redButton.getPicMatrix().setTranslate(redButton.getLayout_x(), redButton.getLayout_y());
 	}
 
 	// 设置大炮旋转点位置
 	public void setCannoLayout(){
 		Cannon cannon = cannoManager.getCurrentCannon();
-		cannon.setCannoRotate_x((int)componetsManager.getBottom().getLayout_x() + cannon.getPicWidth()/2);
-		cannon.setCannoRotate_y((int)componetsManager.getBottom().getLayout_y() + cannon.getPicHeight()/2);
-//		cannon.getPicMatrix().setTranslate((int)cannon.getR, y);
+		cannon.setCannoRotate_x(componetsManager.getBottom().getLayout_x() + cannon.getPicWidth()/2);
+		cannon.setCannoRotate_y(componetsManager.getBottom().getLayout_y() + cannon.getPicHeight()/2);
+//		cannon.getPicMatrix().setTranslate(cannon.getR, y);
 	}
 	
 	// 设置计时器位置
@@ -95,7 +95,7 @@ public class LayoutManager {
 		BottomTime bottomTime = componetsManager.getBottomTime();
 		bottomTime.setLayout_x(componetsManager.getRedButton().getLayout_x() - bottomTime.getPicWidth());
 		bottomTime.setLayout_y(GameConstant.getHeight()-bottomTime.getPicHeight()/2);
-		bottomTime.getPicMatrix().setTranslate((int)bottomTime.getLayout_x(), (int)bottomTime.getLayout_y());
+		bottomTime.getPicMatrix().setTranslate(bottomTime.getLayout_x(), bottomTime.getLayout_y());
 	}
 
 	// 设置金币显示位置
@@ -103,7 +103,7 @@ public class LayoutManager {
 		BottomGold bottomGold = componetsManager.getBottomGold();
 		bottomGold.setLayout_x(componetsManager.getAddButton().getLayout_x()+componetsManager.getAddButton().getPicWidth());
 		bottomGold.setLayout_y(GameConstant.getHeight() - bottomGold.getPicHeight()/2);
-		bottomGold.getPicMatrix().setTranslate((int)bottomGold.getLayout_x(), (int)bottomGold.getLayout_y());
+		bottomGold.getPicMatrix().setTranslate(bottomGold.getLayout_x(), bottomGold.getLayout_y());
 	}
 	// 设置FPS、当前时间等位置
 	

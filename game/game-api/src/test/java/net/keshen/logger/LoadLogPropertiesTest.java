@@ -3,8 +3,6 @@ package net.keshen.logger;
 import java.util.Map.Entry;
 import java.util.Properties;
 
-import net.keshen.util.LoadLogProperties;
-
 import org.junit.Test;
 
 /**
@@ -13,12 +11,6 @@ import org.junit.Test;
  */
 public class LoadLogPropertiesTest {
 
-	static{
-		Properties logProperties = LoadLogProperties.getLoggerProperties();
-		for (Entry<Object, Object> p : logProperties.entrySet()) {
-			System.setProperty((String)p.getKey(),(String)p.getValue());
-		}
-	}
 	
 	@Test
 	public void testLoad() throws InterruptedException{

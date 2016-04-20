@@ -77,6 +77,15 @@ public final class ImageUtils {
 		try {
 			return new Bitmap(ImageIO.read(new File(fileName)));
 		} catch (IOException e) {
+			return getBitmapByAssertNoPath(fileName);
+		}
+		
+	}
+	
+	public static final Bitmap getBitmapByAssertNoPath(String fileName){
+		try {
+			return new Bitmap(ImageIO.read(new File(System.getProperty(fileName))));
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		return null;

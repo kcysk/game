@@ -8,6 +8,7 @@ import net.keshen.base.graphics.Bitmap;
 import net.keshen.base.graphics.Canvas;
 import net.keshen.base.graphics.Matrix;
 import net.keshen.base.graphics.Paint;
+import net.keshen.util.ImageUtils;
 
 /**
  * 画布
@@ -38,7 +39,8 @@ public class JCanvas implements Canvas{
 	 * 创建默认大小的窗口覆盖整个屏幕
 	 */
 	public JCanvas(){
-		//canvas = new BufferedImage((int)gameWindow.getWidth(), (int)gameWindow.getHeight(), BufferedImage.TYPE_4BYTE_ABGR);
+		//canvas = ImageUtils.getBitmapByAssertNoPath("bg_0").getImage();
+		canvas = new BufferedImage((int)gameWindow.getWidth(), (int)gameWindow.getHeight(), BufferedImage.TYPE_4BYTE_ABGR);
 		//canvas = ImageUtils.getImage("start.jpg",ImageUtils.BG_PATH);
 		paint = new JPaint(canvas);
 	}
@@ -49,10 +51,21 @@ public class JCanvas implements Canvas{
 	
 	
 	public void draw(Bitmap bitmap, Matrix matrix, Paint paint) {
-		this.paint.getGraphics().drawImage(bitmap.getImage(), ((JMatrix)matrix).getTransForm(), null);
+		
+		((JPaint)paint).getGraphics().drawImage(bitmap.getImage(), ((JMatrix)matrix).getTransForm(), null);
 	}
 
 	public void draw(Bitmap bitmap, double x, double y, Paint paint) {
 		this.paint.getGraphics().drawImage(bitmap.getImage(), (int)x, (int)y, null);
+	}
+	
+	public void clear() {
+		//setCanvas();
+		this.paint.getGraphics().clearRect(0, 0, 1024, 768);
+	}
+	
+	private void setCanvas(){
+		this.canvas = new BufferedImage((int)gameWindow.getWidth(), (int)gameWindow.getHeight(), BufferedImage.TYPE_4BYTE_ABGR);
+		this.paint = new JPaint(canvas);
 	}
 }

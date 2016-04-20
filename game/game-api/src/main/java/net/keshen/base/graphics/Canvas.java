@@ -12,4 +12,6 @@ public interface Canvas {
 	public void draw(Bitmap bitmap,Matrix matrix,Paint paint);
 	
 	public void draw(Bitmap bitmap,double x,double y,Paint paint);
+	
+	public void clear();
 }

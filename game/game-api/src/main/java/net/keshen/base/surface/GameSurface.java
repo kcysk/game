@@ -1,13 +1,7 @@
 package net.keshen.base.surface;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
-import java.awt.Toolkit;
-import java.awt.geom.AffineTransform;
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -15,14 +9,10 @@ import java.util.Map;
 
 import javax.swing.JPanel;
 
-import net.keshen.base.basecomponet.GameConstant;
 import net.keshen.base.drawable.Drawable;
-import net.keshen.base.graphics.Bitmap;
 import net.keshen.base.graphics.Canvas;
-import net.keshen.base.graphics.Matrix;
-import net.keshen.base.graphics.Paint;
-import net.keshen.base.graphics.support.JMatrix;
-import net.keshen.base.surface.GameSurface.JCanvas.JPaint;
+import net.keshen.base.graphics.support.JCanvas;
+import net.keshen.base.graphics.support.JPaint;
 import net.keshen.logger.Logger;
 import net.keshen.logger.LoggerManager;
 import net.keshen.util.ImageUtils;
@@ -68,7 +58,10 @@ public class GameSurface extends JPanel{
 	
 	public GameSurface(){
 		paint = (JPaint) canvas.getPaint();
+		paint.setAntiAlias(true);
+		paint.setDither(true);
 		gameThread = new MainSurfaceThread(this);
+		//this.setBackground(Color.BLACK);
 	}
 	
 	public void action() throws Exception{
@@ -93,8 +86,9 @@ public class GameSurface extends JPanel{
 	/**
 	 * 绘制所有图层
 	 */
-	public void onDraw(){
+	public void onDraw(Canvas canvas){
 		updatePicLayer(CHANGE_MODEL_UPDATE,0,null);
+//		canvas.clear();
 		for (int id : picLayerIds) {
 			for (Drawable draw : picLayer.get(id)) {
 				draw.onDraw(canvas, paint);
@@ -109,7 +103,15 @@ public class GameSurface extends JPanel{
 	
 	public void unLockCanvas(Canvas canvas){
 		repaint();
+		
 	}
+	
+	public synchronized void paint(Graphics g) {
+		//g.drawImage(ImageUtils.getBitmapByAssertNoPath("bg_0").getImage(), 0, 0, 800, 750, null);
+		g.drawImage(canvas.getCanvas(), 0, 0, null);
+		canvas.clear();
+	}
+	
 	/**
 	 * 更新图层
 	 */
@@ -223,12 +225,6 @@ public class GameSurface extends JPanel{
 		}
 	}
 	
-	
-	public synchronized void paint(Graphics g) {
-		g.drawImage(canvas.getCanvas(), 0, 0, null);
-		canvas.clear();
-	}
-	
 	/**
 	 * 绘制游戏的所有元素的线程
 	 * @author shenke
@@ -251,9 +247,9 @@ public class GameSurface extends JPanel{
 					//TODO
 					canvas = lockCanvas();
 					if(canvas!=null){
-						surface.onDraw();
+						surface.onDraw(canvas);
 					}
-					unLockCanvas(canvas);
+					//unLockCanvas(canvas);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}finally {
@@ -269,157 +265,6 @@ public class GameSurface extends JPanel{
 					e.printStackTrace();
 				}
 			}
-		}
-		
-	}
-	
-	/**
-	 * 画布,其实就是绘制"一大幅"图片
-	 * @author shenke
-	 *verilog
-	 */
-	static class JCanvas implements Canvas{
-		private static Bitmap canvasBit = null;
-		private static AffineTransform gameWindowTransform = null;
-		static{
-			canvasBit = ImageUtils.getBitmapByAssert("bg_0");
-			gameWindowTransform = new AffineTransform();
-			gameWindowTransform.setToTranslation(0, 0);
-		}
-		
-		private Dimension gameWindow = Toolkit.getDefaultToolkit().getScreenSize();
-		
-		private BufferedImage canvas ;
-		private JPaint paint;
-		
-		public Paint getPaint(){
-			return paint;
-		}
-		
-		/**
-		 * 获取画布
-		 * @return
-		 */
-		public BufferedImage getCanvas(){
-			return canvas;
-		}
-		
-		/**
-		 * 默认构造器,
-		 * 创建默认大小的窗口覆盖整个屏幕
-		 */
-		public JCanvas(){
-//			Bitmap canvasBit = ImageUtils.getImage("bg_0");
-//			if(canvasBit!=null){
-//				canvas = canvasBit.getImage();
-//			}else{
-//			}
-			canvas = new BufferedImage((int)gameWindow.getWidth(), (int)gameWindow.getHeight(), BufferedImage.TYPE_4BYTE_ABGR);
-			paint = new JPaint(canvas);
-		}
-		
-		public JCanvas(int width,int height){
-			canvas = new BufferedImage(width,height,BufferedImage.TYPE_4BYTE_ABGR);
-			paint = new JPaint(canvas);
-		}
-		
-		
-		
-		public void draw(Bitmap bitmap, Matrix matrix, Paint paint) {
-			//this.paint.getGraphics().clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-			//this.paint.getGraphics().drawImage(canvasBit.getImage(),gameWindowTransform , null);
-			this.paint.getGraphics().drawImage(bitmap.getImage(), ((JMatrix)matrix).getTransForm(), null);
-		}
-
-		
-		public void draw(Bitmap bitmap, double x, double y, Paint paint) {
-			this.paint.getGraphics().drawImage(bitmap.getImage(), (int)x, (int)y, null);
-		}
-		/**
-		 * 画笔,用于绘制图形
-		 * @author shenke
-		 *
-		 */
-		class JPaint implements Paint{
-			Graphics2D graphics;
-			
-			public JPaint(BufferedImage canvas) {
-				this.graphics = (Graphics2D) canvas.getGraphics();
-			}
-			
-			public Graphics2D getGraphics(){
-				return this.graphics;
-			}
-			
-			
-			public void setTypeface(Object obj) {
-				
-			}
-
-			
-			public void setAntiAlias(boolean tf) {
-				if(tf){
-					RenderingHints renderQuality = graphics.getRenderingHints();
-					if(renderQuality==null){
-						renderQuality = new RenderingHints(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-						graphics.setRenderingHints(renderQuality);
-					}
-					else{
-						renderQuality.put(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF);
-						graphics.setRenderingHints(renderQuality);
-					}
-					//侧重画质
-					if(GameConstant.isQuality()){
-						//TODO
-					}
-					renderQuality.put(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
-					renderQuality.put(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_NORMALIZE);
-					renderQuality.put(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
-					renderQuality.put(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
-				}
-			}
-
-			
-			public void setFilterBitmap(boolean tf) {
-				
-			}
-
-			
-			public void setDither(boolean tf) {
-				if(tf){
-					RenderingHints renderQuality = graphics.getRenderingHints();
-					if(renderQuality==null){
-						renderQuality = new RenderingHints(RenderingHints.KEY_DITHERING, RenderingHints.VALUE_DITHER_ENABLE);
-						graphics.setRenderingHints(renderQuality);
-					}
-					else{
-						renderQuality.put(RenderingHints.KEY_DITHERING, RenderingHints.VALUE_DITHER_ENABLE);
-						graphics.setRenderingHints(renderQuality);
-					}
-					
-				}
-				
-			}
-
-			
-			public void setTextSize(int size) {
-				
-			}
-
-			
-			public void setColor(int rgb) {
-				graphics.setColor(new Color(rgb));
-			}
-
-			
-			public void setColor(Color color) {
-				graphics.setColor(color);
-			}
-			
-		}
-		
-		public void clear() {
-			canvas = new BufferedImage((int)gameWindow.getWidth(), (int)gameWindow.getHeight(), BufferedImage.TYPE_4BYTE_ABGR);//canvasBit.getImage();
 		}
 		
 	}

@@ -18,14 +18,14 @@ public abstract class Componet extends DrawableAdapter{
 	
 	protected Bitmap bg;
 	
-	private double layout_x;
-	private double layout_y;
+	private int layout_x;
+	private int layout_y;
 	
 	/**
 	 * 获取组件在屏幕上的x坐标
 	 * @return
 	 */
-	public double getLayout_x() {
+	public int getLayout_x() {
 		return layout_x;
 	}
 	
@@ -33,7 +33,7 @@ public abstract class Componet extends DrawableAdapter{
 	 * 设置组件在屏幕上的y坐标
 	 * @param layout_x
 	 */
-	public void setLayout_x(double layout_x) {
+	public void setLayout_x(int layout_x) {
 		this.layout_x = layout_x;
 	}
 	
@@ -41,7 +41,7 @@ public abstract class Componet extends DrawableAdapter{
 	 * 获取组件在屏幕上的y坐标
 	 * @return
 	 */
-	public double getLayout_y() {
+	public int getLayout_y() {
 		return layout_y;
 	}
 	
@@ -49,7 +49,7 @@ public abstract class Componet extends DrawableAdapter{
 	 * 设置左键在屏幕上的y坐标
 	 * @param layout_y
 	 */
-	public void setLayout_y(double layout_y) {
+	public void setLayout_y(int layout_y) {
 		this.layout_y = layout_y;
 	}
 	

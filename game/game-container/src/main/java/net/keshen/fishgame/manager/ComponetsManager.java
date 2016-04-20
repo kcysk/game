@@ -19,9 +19,13 @@ import net.keshen.util.ImageUtils;
  */
 public class ComponetsManager {
 
-	private static final Logger logger = LoggerManager.getLogger(ComponetsManager.class);
+	private static Logger logger = LoggerManager.getLogger(ComponetsManager.class.getName());
 	
 	private static ComponetsManager manager;
+	
+	public static void main(String[] args) {
+		logger.info("123");
+	}
 	private CannoManager cannoManager;
 	
 	private Bottom bottom;

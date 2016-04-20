@@ -14,7 +14,7 @@
 	
 	<properties>
 		<!-- Log libs -->
-		<log4j_version>1.2.12</log4j_version>
+		<log4j_version>1.2.16</log4j_version>
 		<sl4j_version>1.6.2</sl4j_version>
 	</properties>
 </project>
