@@ -42,6 +42,12 @@ public class FishManager {
 				break;
 			case SWORDFISH:
 				break;
+			case TORTOISE:
+				break;
+			case TRAFFICLIGHTSFISH:
+				break;
+			case WHALE:
+				break;
 			default:
 				break;
 		}
