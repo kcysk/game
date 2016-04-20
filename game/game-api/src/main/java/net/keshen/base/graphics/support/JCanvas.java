@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 
+import net.keshen.base.basecomponet.GameConstant;
 import net.keshen.base.graphics.Bitmap;
 import net.keshen.base.graphics.Canvas;
 import net.keshen.base.graphics.Matrix;
@@ -61,7 +62,7 @@ public class JCanvas implements Canvas{
 	
 	public void clear() {
 		//setCanvas();
-		this.paint.getGraphics().clearRect(0, 0, 1024, 768);
+		//this.paint.getGraphics().clearRect(0, 0, GameConstant.getWidth(), GameConstant.getHeight());
 	}
 	
 	private void setCanvas(){

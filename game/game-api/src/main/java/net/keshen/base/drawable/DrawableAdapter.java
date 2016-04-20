@@ -29,7 +29,6 @@ public abstract class DrawableAdapter implements Drawable,Serializable{
 
 	public void onDraw(Canvas canvas, Paint paint) {
 		canvas.draw(this.getCurrentPic(), this.getMatrix(), paint);
-		System.out.println("绘制："+getDrawableName());
 	}
 
 	public void setDrawableName(String name) {

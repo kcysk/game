@@ -1,5 +1,6 @@
 package net.keshen.util;
 
+import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.geom.AffineTransform;
@@ -41,7 +42,7 @@ public final class ImageUtils {
 	 * @param persent	缩放比例
 	 * @return
 	 */
-	public static final Bitmap scaleImageByProportion(BufferedImage srcImage,float proportion){
+	public static final Bitmap scaleBitmapByProportion(BufferedImage srcImage,float proportion){
 		AffineTransform transform = new AffineTransform();
 		transform.setToScale(proportion, proportion);
 		BufferedImage scaleImage = new BufferedImage((int)(srcImage.getWidth()*proportion), (int)(srcImage.getHeight()*proportion), BufferedImage.TYPE_4BYTE_ABGR);
@@ -58,14 +59,14 @@ public final class ImageUtils {
 	 * @param srcImage
 	 * @return
 	 */
-	public static final Bitmap scaleImageByScreenSize(BufferedImage srcImage,int screenHeight,int screenWidth){
+	public static final Bitmap scaleBitmapByScreenSize(BufferedImage srcImage,int screenHeight,int screenWidth){
 		float scalNum = 1;
 		//根据屏幕尺寸动态缩放图片
 		if(screenHeight<500){
 			scalNum = 0.75f;
 		}
-		
-		return scaleImageByProportion(srcImage, scalNum);
+		scalNum = 1.5f;
+		return scaleBitmapByProportion(srcImage, scalNum);
 	}
 	
 	/**
@@ -104,5 +105,47 @@ public final class ImageUtils {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	/**
+	 * 
+	 * @param image
+	 * @param percent
+	 * @return
+	 */
+	public static BufferedImage zoomImage(BufferedImage image,double percent){
+		BufferedImage newImage = new BufferedImage((int)(image.getWidth()*percent), (int)(image.getHeight()*percent), BufferedImage.TYPE_4BYTE_ABGR);
+		Graphics g = newImage.getGraphics();
+		g.drawImage(image, 0, 0, newImage.getWidth(), newImage.getHeight(), 
+					0, 0, image.getWidth(), image.getHeight(), null);
+		return newImage;
+	}
+	/**
+	 * 缩放图片
+	 * @param image
+	 * @param percent
+	 * @return
+	 */
+	public static Bitmap zoomBitmap(BufferedImage image,double percent){
+		BufferedImage newImage = new BufferedImage((int)(image.getWidth()*percent), (int)(image.getHeight()*percent), BufferedImage.TYPE_4BYTE_ABGR);
+		Graphics g = newImage.getGraphics();
+		g.drawImage(image, 0, 0, newImage.getWidth(), newImage.getHeight(), 
+				0, 0, image.getWidth(), image.getHeight(), null);
+		return new Bitmap(newImage);
+	}
+	/**
+	 * 缩放图片
+	 * @param image 源图片
+	 * @param width 
+	 * @param height
+	 * @return
+	 */
+	public static Bitmap zoomBitmap(Bitmap src,int width,int height){
+		BufferedImage newImage = new BufferedImage(width, height, BufferedImage.TYPE_4BYTE_ABGR);
+		Graphics g = newImage.getGraphics();
+		g.drawImage(src.getImage(), 0, 0, newImage.getWidth(), newImage.getHeight(), 
+				0, 0, src.getWidth(), src.getHeight(), null);
+		System.out.println("约图片："+src.getWidth()+":"+src.getHeight());
+		return new Bitmap(newImage);
 	}
 }

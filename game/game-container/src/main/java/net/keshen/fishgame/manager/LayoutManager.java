@@ -63,7 +63,7 @@ public class LayoutManager {
 	public void setCannonBottomLayout() {
 		Bottom bottom = componetsManager.getBottom();
 		bottom.setLayout_x(GameConstant.getWidth() / 2 - bottom.getPicWidth() / 2);
-		bottom.setLayout_y(GameConstant.getHeight() - bottom.getPicHeight() / 2);
+		bottom.setLayout_y(GameConstant.getHeight() - bottom.getPicHeight());
 		bottom.getPicMatrix().setTranslate(bottom.getLayout_x(), bottom.getLayout_y());
 	}
 

@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 
 import net.keshen.base.basecomponet.GameConstant;
+import net.keshen.fishgame.config.Configuration;
 import net.keshen.logger.Logger;
 import net.keshen.logger.LoggerManager;
 
@@ -15,20 +16,46 @@ import net.keshen.logger.LoggerManager;
  */
 public class GameManager {
 	
-	private Logger logger = LoggerManager.getLogger(getClass());
+	//private Logger logger = LoggerManager.getLogger(getClass());
+	
+	private static GameManager gameManager;
 	
 	private static boolean pause = false;
 	private static boolean run = true;
 	
 	private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+	
+	public static GameManager newInstance(){
+		if(gameManager==null)
+		{
+			gameManager = new GameManager();
+		}
+		return gameManager;
+	}
+	
+	private GameManager(){
+		
+	}
+	
 	//初始化游戏相关参数
 	public void initGame(){
-		logger.debug("游戏初始化中。。。");
+		
+		System.out.println("游戏初始化中。。。");
+		
+		Configuration.newInstance().init();
+		
 		GameConstant.setFps(true);
 		GameConstant.setQuality(true);
 		GameConstant.setTime(true);
-		GameConstant.setHeight((int)screenSize.getWidth());
-		GameConstant.setWidth((int)screenSize.getHeight());
+		GameConstant.setWidth((int)screenSize.getWidth());
+		//GameConstant.setWidth(700);
+		System.out.println("游戏窗口宽度："+GameConstant.getWidth());
+		GameConstant.setHeight((int)screenSize.getHeight());
+		//GameConstant.setHeight(500);
+		System.out.println("游戏窗口高度："+GameConstant.getHeight());
+		
+		//Toolkit.getDefaultToolkit().
+		
 	}
 	
 	/**
@@ -60,4 +87,5 @@ public class GameManager {
 	public static void gameOver(){
 		run = false;
 	}
+	
 }

@@ -56,9 +56,9 @@ public class FishManager {
 	private Fish getFishImage(){
 		Fish fish = new Fish();
 		imageManager.getBitmapsByImageConfig(System.getProperty("fish"));
-		fish.setActBitmap(actBitmap);
-		fish.setCatchActBitmap(catchActBitmap);
-		fish.setInfo(info);
+		//fish.setActBitmap(actBitmap);
+		//fish.setCatchActBitmap(catchActBitmap);
+		//fish.setInfo(info);
 		return fish;
 	}
 }

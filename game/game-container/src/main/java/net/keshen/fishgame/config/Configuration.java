@@ -76,7 +76,6 @@ public class Configuration {
 				
 			}
 		} catch (Exception e) {
-			
 			System.out.print("加载配置文件失败！！！！！！");
 			e.printStackTrace();
 		} finally {

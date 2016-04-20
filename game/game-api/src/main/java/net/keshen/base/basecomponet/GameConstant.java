@@ -13,6 +13,8 @@ public class GameConstant {
 	private static boolean isTime; //是否显示当前时间
 	private static boolean isQuality; //是否画质优先
 	
+	private static String bgName="bg_0";
+	
 	/**
 	 * 获取游戏窗口的宽度
 	 * @return
@@ -75,5 +77,12 @@ public class GameConstant {
 	public static void setQuality(boolean isQuality) {
 		GameConstant.isQuality = isQuality;
 	}
+	public static String getBgName() {
+		return bgName ;
+	}
+	public static void setBgName(String bgName) {
+		GameConstant.bgName = bgName;
+	}
+	
 	
 }

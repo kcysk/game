@@ -3,6 +3,7 @@ package net.keshen.fishgame.manager;
 
 import net.keshen.base.OnClickListener;
 import net.keshen.base.basecomponet.Componet;
+import net.keshen.fishgame.componets.Background;
 import net.keshen.fishgame.componets.Bottom;
 import net.keshen.fishgame.componets.BottomGold;
 import net.keshen.fishgame.componets.BottomTime;
@@ -33,6 +34,7 @@ public class ComponetsManager {
 	private BottomTime bottomTime;
 	private Componet addButton;
 	private Componet redButton;
+	private Background background;
 	
 	private OnClickListener upListener;
 	private OnClickListener downListener;
@@ -51,6 +53,9 @@ public class ComponetsManager {
 	//初始化所有组件
 	private void init(){
 		logger.info("组件初始化中.....");
+		
+		//初始化背景
+		background = new Background();
 		//初始化底座
 		logger.info("初始化大炮底座...");
 		bottom = new Bottom();
@@ -153,4 +158,7 @@ public class ComponetsManager {
 		this.cannoManager = cannoManager;
 	}
 	
+	public Background getBackground() {
+		return background;
+	}
 }

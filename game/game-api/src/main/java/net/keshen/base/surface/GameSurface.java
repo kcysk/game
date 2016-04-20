@@ -1,6 +1,5 @@
 package net.keshen.base.surface;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,7 +14,6 @@ import net.keshen.base.graphics.support.JCanvas;
 import net.keshen.base.graphics.support.JPaint;
 import net.keshen.logger.Logger;
 import net.keshen.logger.LoggerManager;
-import net.keshen.util.ImageUtils;
 
 /**
  * 进行画图操作的主要图层,这里重新定义图层

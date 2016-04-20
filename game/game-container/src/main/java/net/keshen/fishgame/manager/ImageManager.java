@@ -190,7 +190,7 @@ public class ImageManager {
 				if(name.startsWith("bullet_"+type.getVersion())){
 					bulletBitmaps.put(name, bulletAndNetBitmaps.get(name));
 				}
-				else if(name.startsWith(prefix)){
+				else if(name.startsWith("net_"+type.getVersion())){
 					
 				}
 			}
