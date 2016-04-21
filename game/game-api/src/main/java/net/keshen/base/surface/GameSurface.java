@@ -36,11 +36,6 @@ public class GameSurface extends JPanel{
 	/** 更新图层元素*/
 	public static final int CHANGE_MODEL_UPDATE = 2;
 	
-	public static final int CHANGE_SURFACE_ADD = 0;
-	
-	public static final int CHANGE_SURFACE_REMOVE = 1;
-	
-	public static final int CHANGE_SURFACE_UPDATE = 2;
 	
 	private Map<Integer,List<Drawable>> picLayer = new HashMap<Integer, List<Drawable>>(); 
 	private Map<Integer,List<Drawable>> addLayer = new HashMap<Integer, List<Drawable>>();
@@ -107,7 +102,6 @@ public class GameSurface extends JPanel{
 	public synchronized void paint(Graphics g) {
 		//g.drawImage(ImageUtils.getBitmapByAssertNoPath("bg_0").getImage(), 0, 0, 800, 750, null);
 		g.drawImage(canvas.getCanvas(), 0, 0, null);
-		canvas.clear();
 	}
 	
 	/**

@@ -13,27 +13,27 @@ import net.keshen.util.ImageUtils;
  */
 public class Background extends Componet{
 
-	@Override
+	
 	public Matrix getPicMatrix() {
 		return getMatrix();
 	}
 
-	@Override
+	
 	public Bitmap getCurrentPic() {
 		return super.bg;
 	}
 
-	@Override
+	
 	public int getPicWidth() {
 		return getCurrentPic().getWidth();
 	}
 
-	@Override
+	
 	public int getPicHeight() {
 		return getCurrentPic().getHeight();
 	}
 
-	@Override
+	
 	public void setBg(Bitmap bg) {
 		
 		super.setBg(ImageUtils.zoomBitmap(bg, GameConstant.getWidth(), GameConstant.getHeight()));

@@ -31,13 +31,11 @@ public class InnerFrame extends JFrame{
 			
 			private JFrame frame;
 			
-			@Override
 			public void keyTyped(KeyEvent e) {
 				// TODO Auto-generated method stub
 				
 			}
 			
-			@Override
 			public void keyReleased(KeyEvent e) {
 				// TODO Auto-generated method stub
 				

@@ -1,6 +1,7 @@
 package net.keshen.base.graphics;
 
 import java.awt.Color;
+import java.awt.Graphics2D;
 
 /**
  * 画笔
@@ -10,6 +11,9 @@ import java.awt.Color;
  */
 public interface Paint {
 
+	
+	public Graphics2D getGraphics();
+	
 	/**
 	 * 设置字体
 	 * @param obj

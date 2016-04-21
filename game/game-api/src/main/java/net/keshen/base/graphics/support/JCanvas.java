@@ -61,6 +61,7 @@ public class JCanvas implements Canvas{
 	}
 	
 	public void clear() {
+		System.out.println("clear");
 		//setCanvas();
 		//this.paint.getGraphics().clearRect(0, 0, GameConstant.getWidth(), GameConstant.getHeight());
 	}

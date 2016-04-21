@@ -47,11 +47,11 @@ public class GameManager {
 		GameConstant.setFps(true);
 		GameConstant.setQuality(true);
 		GameConstant.setTime(true);
-		GameConstant.setWidth((int)screenSize.getWidth());
-		//GameConstant.setWidth(700);
+		//GameConstant.setWidth((int)screenSize.getWidth());
+		GameConstant.setWidth(700);
 		System.out.println("游戏窗口宽度："+GameConstant.getWidth());
-		GameConstant.setHeight((int)screenSize.getHeight());
-		//GameConstant.setHeight(500);
+		//GameConstant.setHeight((int)screenSize.getHeight());
+		GameConstant.setHeight(500);
 		System.out.println("游戏窗口高度："+GameConstant.getHeight());
 		
 		//Toolkit.getDefaultToolkit().

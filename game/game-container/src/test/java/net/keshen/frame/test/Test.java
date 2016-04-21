@@ -29,7 +29,7 @@ public class Test extends JFrame{
 		final Test t = new Test();
 		Dimension size = new Dimension(GameConstant.getWidth(), GameConstant.getHeight());
 		t.setSize(size);
-		t.setUndecorated(true);
+		//t.setUndecorated(true);
 		t.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		t.setLocationRelativeTo(null);
 		Container cp = t.getContentPane();
@@ -52,25 +52,22 @@ public class Test extends JFrame{
 		t.setVisible(true);
 		surface.action();
 		final InnerFrame ifFrame = new InnerFrame();
-		ifFrame.setVisible(false);
+		//ifFrame.setVisible(false);
 		//t.add(ifFrame);
 //		new Thread(()->surfa6ce.updateUI()).start();
 		ButtonAdapter adapter = new ButtonAdapter();
 		t.addKeyListener(new KeyListener() {
 			
-			@Override
 			public void keyTyped(KeyEvent e) {
 				// TODO Auto-generated method stub
 				
 			}
 			
-			@Override
 			public void keyReleased(KeyEvent e) {
 				// TODO Auto-generated method stub
 				
 			}
 			
-			@Override
 			public void keyPressed(KeyEvent e) {
 				if(e.getKeyCode()==KeyEvent.VK_ESCAPE&&!ifFrame.isVisible()){
 					ifFrame.setVisible(true);
