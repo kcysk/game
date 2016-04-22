@@ -7,6 +7,7 @@ import net.keshen.base.graphics.Canvas;
 import net.keshen.base.listener.WindowKeyListener;
 
 /**
+ * 不具有复用性
  * @author shenke
  * @date 2016-4-21 上午11:08:26
  */
