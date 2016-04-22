@@ -4,12 +4,15 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowFocusListener;
 
 import javax.swing.JFrame;
 
 import net.keshen.base.basecomponet.GameConstant;
 import net.keshen.base.surface.GameSurface;
 import net.keshen.fishgame.componets.ButtonAdapter;
+import net.keshen.fishgame.frame.ESCWindow;
 import net.keshen.fishgame.manager.ComponetsManager;
 import net.keshen.fishgame.manager.LayoutManager;
 import net.keshen.fishgame.manager.game.GameManager;
@@ -51,7 +54,7 @@ public class Test extends JFrame{
 		t.setContentPane(surface);
 		t.setVisible(true);
 		surface.action();
-		final InnerFrame ifFrame = new InnerFrame();
+		final ESCWindow ifFrame = new ESCWindow();
 		//ifFrame.setVisible(false);
 		//t.add(ifFrame);
 //		new Thread(()->surfa6ce.updateUI()).start();
@@ -75,11 +78,26 @@ public class Test extends JFrame{
 					//ifFrame.setFocusable(false);
 					GameManager.pause();
 					t.setFocusable(true);
-				}else if(e.getKeyCode()==KeyEvent.VK_ESCAPE&&!ifFrame.isVisible()){
+					System.out.println("1232142");
+				}else if(e.getKeyCode()==KeyEvent.VK_ESCAPE&&ifFrame.isVisible()){
 					ifFrame.setVisible(false);
 					//t.setFocusable(true);
+//					GameManager.
 				}
 				
+			}
+		});
+		t.addWindowFocusListener(new WindowFocusListener() {
+			
+			public void windowLostFocus(WindowEvent e) {
+				ifFrame.setVisible(false);
+				
+			}
+			
+			public void windowGainedFocus(WindowEvent e) {
+				if(GameManager.isPause()){
+					ifFrame.setVisible(true);
+				}
 			}
 		});
 	}

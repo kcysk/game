@@ -12,6 +12,8 @@ public class GameConstant {
 	private static boolean isFps;	//是否显示Fps
 	private static boolean isTime; //是否显示当前时间
 	private static boolean isQuality; //是否画质优先
+	private static boolean isRunning;
+	private static boolean isPause;
 	
 	private static String bgName="bg_0";
 	
@@ -83,6 +85,17 @@ public class GameConstant {
 	public static void setBgName(String bgName) {
 		GameConstant.bgName = bgName;
 	}
-	
+	public static boolean isRunning() {
+		return isRunning;
+	}
+	public static void setRunning(boolean isRunning) {
+		GameConstant.isRunning = isRunning;
+	}
+	public static boolean isPause() {
+		return isPause;
+	}
+	public static void setPause(boolean isPause) {
+		GameConstant.isPause = isPause;
+	}
 	
 }

@@ -1,5 +1,6 @@
 package net.keshen.fishgame.frame;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,10 +9,11 @@ import java.util.Map;
 
 import net.keshen.base.drawable.Drawable;
 import net.keshen.base.frame.AbstractBasePanel;
+import net.keshen.base.frame.BaseWindow;
 import net.keshen.base.graphics.Canvas;
 import net.keshen.base.graphics.Paint;
 import net.keshen.base.graphics.support.JCanvas;
-import net.keshen.base.graphics.support.JPaint;
+import net.keshen.base.threads.BasePanelThread;
 import net.keshen.logger.Logger;
 import net.keshen.logger.LoggerManager;
 
@@ -37,13 +39,19 @@ public class ESCPanel extends AbstractBasePanel{
 	private	Paint paint;
 	
 	private boolean changeLayer = false;
+	private BasePanelThread escPanelThread;
 	
-	public ESCPanel(){
-		
-		
+	public ESCPanel(BaseWindow parentWindow){
+		escPanelThread = new BasePanelThread(this, canvas);
+		parentFrame = parentWindow;
+		setSize(parentFrame.getSize());
 	}
 
-	public void onDraw(JCanvas canvas){
+	public void escAction(){
+		escPanelThread.start();
+	}
+	
+	public void onDraw(Canvas canvas){
 		updateComponetLayer(CHANGE_MODEL_UPDATE,null,0);
 		for (int id : picLayerIds) {
 			for (Drawable draw : picLayer.get(id)) {
@@ -117,6 +125,8 @@ public class ESCPanel extends AbstractBasePanel{
 	@Override
 	public synchronized void paint(Graphics g) {
 		g.drawImage(canvas.getCanvas(), 0, 0, null);
+		g.setColor(Color.red);
+		g.drawLine(0, 0, 200, 200);
 	}
 	
 	private void updateLayerIds(int id,int model){

@@ -30,6 +30,7 @@ public class BaseWindow extends JWindow{
 	 * 设置整个窗口透明
 	 * @param tf true 透明 false 默认
 	 */
+	@SuppressWarnings("restriction")
 	public void setTransparent(boolean tf){
 		AWTUtilities.setWindowOpaque(this,!tf);
 	}

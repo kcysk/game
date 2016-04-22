@@ -1,5 +1,6 @@
 package net.keshen.fishgame.frame;
 
+import java.awt.Component;
 import java.awt.event.KeyEvent;
 
 import javax.swing.JWindow;
@@ -30,7 +31,8 @@ public class ESCWindow extends BaseWindow{
 	public ESCWindow(){
 		setSize((int) (GameConstant.getWidth()*0.2),GameConstant.getHeight()*1/3);
 		
-		escPanel = new ESCPanel();
+		escPanel = new ESCPanel(this);
+		add((Component) escPanel);
 		setTransparent(true);
 		//setVisible(true);
 		keyListener = new ESCFrameKeyListener();

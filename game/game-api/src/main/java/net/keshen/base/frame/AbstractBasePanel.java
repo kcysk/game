@@ -1,6 +1,5 @@
 package net.keshen.base.frame;
 
-import java.awt.Graphics;
 import java.awt.event.KeyListener;
 import java.util.Map;
 
@@ -23,7 +22,10 @@ public abstract class AbstractBasePanel extends JPanel implements BasePanel {
 	protected BaseWindow parentFrame;
 	
 	public AbstractBasePanel(){
-		setSize(parentFrame.getSize());
+		//应该是null的
+		if(parentFrame!=null){
+			setSize(parentFrame.getSize());
+		}
 	}
 
 	public void putComponet2Layer(Drawable drawable, int layerId) {

@@ -4,7 +4,6 @@ import java.util.Map;
 
 import net.keshen.base.drawable.Drawable;
 import net.keshen.base.graphics.Canvas;
-import net.keshen.base.graphics.support.JCanvas;
 import net.keshen.base.listener.WindowKeyListener;
 
 /**
@@ -20,7 +19,7 @@ public interface BasePanel{
 	public static final int CHANGE_MODEL_UPDATE = 2;
 	
 	
-	public void onDraw(JCanvas canvas);
+	public void onDraw(Canvas canvas);
 	
 	public Canvas lockCanvas();
 	

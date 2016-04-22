@@ -3,8 +3,7 @@ package net.keshen.base.listener;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
 
-
-import net.keshen.base.frame.BaseFrame;
+import net.keshen.base.frame.BaseWindow;
 
 /**
  * @author shenke
@@ -12,5 +11,5 @@ import net.keshen.base.frame.BaseFrame;
  */
 public interface WindowListener extends KeyListener , MouseListener{
 
-	public void setjFrame(BaseFrame frame);
+	public void setjFrame(BaseWindow frame);
 }

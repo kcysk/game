@@ -15,6 +15,7 @@ import net.keshen.fishgame.enumration.BulletType;
 import net.keshen.fishgame.enumration.FireType;
 import net.keshen.fishgame.enumration.FishType;
 import net.keshen.fishgame.enumration.NetType;
+import net.keshen.fishgame.enumration.Number;
 import net.keshen.fishgame.enumration.Type;
 import net.keshen.fishgame.info.ImageConfig;
 import net.keshen.fishgame.info.ImageConfig.ActImageConfig;
@@ -41,6 +42,9 @@ public class ImageManager {
 	public static final Map<FireType,Bitmap[]> FIRE_BITMAP = new HashMap<FireType,Bitmap[]>();
 	public static final Map<NetType,Bitmap> NET_BITMAP = new HashMap<NetType,Bitmap>();
 	public static final Map<BulletType,Bitmap[]> BULLET_BITMAP = new HashMap<BulletType,Bitmap[]>();
+	public static final Map<Number,Bitmap> NUMBER_BITMAP = new HashMap<Number,Bitmap>();
+	
+	
 	
 	private static ImageManager imageManager;
 	
@@ -62,101 +66,6 @@ public class ImageManager {
 		for (String path : actConfigPath) {
 			actBitmapMap.putAll(getBitmapsByImageConfig(path));
 		}
-		/*
-		Map<String, Bitmap> mackerelMap = new HashMap<String, Bitmap>();
-		Map<String, Bitmap> bluefishMap = new HashMap<String, Bitmap>();
-		Map<String, Bitmap> frogMap = new HashMap<String, Bitmap>();
-		Map<String, Bitmap> clownfishMap = new HashMap<String, Bitmap>();
-		Map<String, Bitmap> heimMap = new HashMap<String, Bitmap>();
-		Map<String, Bitmap> lanternfishMap = new HashMap<String, Bitmap>();
-		Map<String, Bitmap> mermaid1Map = new HashMap<String, Bitmap>();
-		Map<String, Bitmap> mermaid2Map = new HashMap<String, Bitmap>();
-		Map<String, Bitmap> greenfishMap = new HashMap<String, Bitmap>();
-		Map<String, Bitmap> sharkMap = new HashMap<String, Bitmap>();
-		Map<String, Bitmap> skateMap = new HashMap<String, Bitmap>();
-		Map<String, Bitmap> snapperMap = new HashMap<String, Bitmap>();
-		Map<String, Bitmap> squidMap = new HashMap<String, Bitmap>();
-		Map<String, Bitmap> swordfishMap = new HashMap<String, Bitmap>();
-		Map<String, Bitmap> tortoiseMap = new HashMap<String, Bitmap>();
-		Map<String, Bitmap> trafficlightsfishMap = new HashMap<String, Bitmap>();
-		Map<String, Bitmap> whaleMap = new HashMap<String, Bitmap>();
-		
-		
-		for (String fishActName : actBitmapMap.keySet()) {
-			switch (FishType.getType(fishActName.substring(0, 6))) {
-				case MACKEREL:
-					mackerelMap.put(fishActName, actBitmapMap.get(fishActName));
-					break;
-				case BLUEFISH:
-					bluefishMap.put(fishActName, actBitmapMap.get(fishActName));
-					break;
-				case FROG:
-					frogMap.put(fishActName, actBitmapMap.get(fishActName));
-					break;
-				case CLOWNFISH:
-					clownfishMap.put(fishActName, actBitmapMap.get(fishActName));
-					break;
-				case HEIM:
-					heimMap.put(fishActName, actBitmapMap.get(fishActName));
-					break;
-				case LANTERNFISH:
-					lanternfishMap.put(fishActName, actBitmapMap.get(fishActName));
-					break;
-				case MERMAID1:
-					mermaid1Map.put(fishActName, actBitmapMap.get(fishActName));
-					break;
-				case MERMAID2:
-					mermaid2Map.put(fishActName, actBitmapMap.get(fishActName));
-					break;
-				case GREENFISH:
-					greenfishMap.put(fishActName, actBitmapMap.get(fishActName));
-					break;
-				case SHARK:
-					sharkMap.put(fishActName, actBitmapMap.get(fishActName));
-					break;
-				case SKATE:
-					skateMap.put(fishActName, actBitmapMap.get(fishActName));
-					break;
-				case SNAPPER:
-					snapperMap.put(fishActName, actBitmapMap.get(fishActName));
-					break;
-				case SQUID:
-					squidMap.put(fishActName, actBitmapMap.get(fishActName));
-					break;
-				case SWORDFISH:
-					swordfishMap.put(fishActName, actBitmapMap.get(fishActName));
-					break;
-				case TORTOISE:
-					tortoiseMap.put(fishActName, actBitmapMap.get(fishActName));
-					break;
-				case TRAFFICLIGHTSFISH:
-					trafficlightsfishMap.put(fishActName, actBitmapMap.get(fishActName));
-					break;
-				case WHALE:
-					whaleMap.put(fishActName, actBitmapMap.get(fishActName));
-					break;
-				default:
-					break;
-			}
-		}
-		FISH_ACT_BITMAP.put(FishType.BLUEFISH, bluefishMap);
-		FISH_ACT_BITMAP.put(FishType.CLOWNFISH, clownfishMap);
-		FISH_ACT_BITMAP.put(FishType.FROG, frogMap);
-		FISH_ACT_BITMAP.put(FishType.GREENFISH, greenfishMap);
-		FISH_ACT_BITMAP.put(FishType.HEIM, heimMap);
-		FISH_ACT_BITMAP.put(FishType.LANTERNFISH, lanternfishMap);
-		FISH_ACT_BITMAP.put(FishType.MACKEREL, mackerelMap);
-		FISH_ACT_BITMAP.put(FishType.MERMAID1, mermaid1Map);
-		FISH_ACT_BITMAP.put(FishType.MERMAID2, mermaid2Map);
-		FISH_ACT_BITMAP.put(FishType.SHARK, sharkMap);
-		FISH_ACT_BITMAP.put(FishType.SKATE, skateMap);
-		FISH_ACT_BITMAP.put(FishType.SNAPPER, snapperMap);
-		FISH_ACT_BITMAP.put(FishType.SQUID, squidMap);
-		FISH_ACT_BITMAP.put(FishType.SWORDFISH, swordfishMap);
-		FISH_ACT_BITMAP.put(FishType.TORTOISE, tortoiseMap);
-		FISH_ACT_BITMAP.put(FishType.TRAFFICLIGHTSFISH, trafficlightsfishMap);
-		FISH_ACT_BITMAP.put(FishType.WHALE,whaleMap);
-		*/
 		for (FishType fishType : FishType.values()) {
 			//List<Bitmap> acts = new ArrayList<Bitmap>();
 			Map<String,Bitmap> actMap = new TreeMap<String, Bitmap>();
@@ -179,11 +88,13 @@ public class ImageManager {
 		logger.info("解析鱼类动作图片结束。。。。");
 	}
 	
+	//初始化子弹、渔网、数字
 	private void initBulletAndNetBitmap(){
 		Map<String,Bitmap> bulletAndNetBitmaps = getBitmapsByImageConfig("cannon/bulletandnet");
 		List<Type> bulletAndNetEnuType = new ArrayList<Type>();
 		bulletAndNetEnuType.addAll(Arrays.asList(BulletType.values()));
 		bulletAndNetEnuType.addAll(Arrays.asList(NetType.values()));
+		bulletAndNetEnuType.addAll(Arrays.asList(Number.values()));
 		for (Type type : bulletAndNetEnuType) {
 			Map<String,Bitmap> bulletBitmaps = new TreeMap<String,Bitmap>();
 			for (String name : bulletAndNetBitmaps.keySet()) {
@@ -191,8 +102,14 @@ public class ImageManager {
 					bulletBitmaps.put(name, bulletAndNetBitmaps.get(name));
 				}
 				else if(name.startsWith("net_"+type.getVersion())){
-					
+					NET_BITMAP.put((NetType) type, bulletAndNetBitmaps.get(name));
 				}
+				else if(name.startsWith("num_"+type.getVersion())){
+					NUMBER_BITMAP.put((Number) type, bulletAndNetBitmaps.get(name));
+				}
+			}
+			if(type instanceof BulletType){
+				BULLET_BITMAP.put((BulletType) type, bulletBitmaps.values().toArray(new Bitmap[0]));
 			}
 		}
 	}
