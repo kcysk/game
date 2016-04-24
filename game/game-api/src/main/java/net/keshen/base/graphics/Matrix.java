@@ -12,7 +12,7 @@ public interface Matrix {
 	 * @param x
 	 * @param y
 	 */
-	public void setTranslate(int x,int y);
+	public void setTranslate(float x,float y);
 	
 	/**
 	 * 重置矩阵

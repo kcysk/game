@@ -1,10 +1,13 @@
 package net.keshen.fishgame.componets;
 
+import java.util.Map;
+
 import net.keshen.base.drawable.DrawableAdapter;
 import net.keshen.base.graphics.Bitmap;
 import net.keshen.base.graphics.Canvas;
 import net.keshen.base.graphics.Matrix;
 import net.keshen.base.graphics.Paint;
+import net.keshen.fishgame.enumration.FireType;
 
 /**
  * 大炮
@@ -18,7 +21,12 @@ public class Cannon extends DrawableAdapter{
 	 * 
 	 */
 	private static final long serialVersionUID = 6730846566702756181L;
-	private Bitmap[] cannoImage;
+	/** 大炮最小型号*/
+	public static final String MIN_VERSION = "1";
+	/** 大炮最大型号*/
+	public static final String MAX_VERSION = "11";
+	
+	private Bitmap[] cannonImage;
 	 
 	private int currentImageId;
 	private int cannoRotate_x;//旋转点的x坐标
@@ -27,19 +35,16 @@ public class Cannon extends DrawableAdapter{
 	private float x;
 	private float y;
 	
+	private FireType type;
+	
 	public Cannon(){
-		
+		type = FireType.FIRE1;
+		currentImageId = 0;
 	}
-	
-	public Cannon(Bitmap[] cannoImage){
-		this.cannoImage = cannoImage;
-		this.currentImageId = 0;
-	}
-	
 	
 	
 	public Bitmap getCurrentPic() {
-		return cannoImage[currentImageId];
+		return cannonImage[currentImageId];
 	}
 
 	public int getPicWidth() {
@@ -64,10 +69,6 @@ public class Cannon extends DrawableAdapter{
 	
 	public String getDrawableName() {
 		return null;
-	}
-
-	public void setCannoImage(Bitmap[] cannoImage) {
-		this.cannoImage = cannoImage;
 	}
 
 	public int getCurrentImageId() {
@@ -109,4 +110,21 @@ public class Cannon extends DrawableAdapter{
 	public void setY(float y) {
 		this.y = y;
 	}
+
+	public FireType getType() {
+		return type;
+	}
+
+	public void setType(FireType type) {
+		this.type = type;
+	}
+
+	public Bitmap[] getCannonImage() {
+		return cannonImage;
+	}
+
+	public void setCannonImage(Bitmap[] cannonImage) {
+		this.cannonImage = cannonImage;
+	}
+
 }

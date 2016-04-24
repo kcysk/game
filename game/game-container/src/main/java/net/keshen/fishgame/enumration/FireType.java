@@ -36,4 +36,29 @@ public enum FireType {
 	public void setVersion(String version) {
 		this.version = version;
 	}
+	
+	/**
+	 * valueOfVersion("1")-->return FIRE1</br>
+	 * the max version is 11</br>
+	 * others return FIRE1
+	 * @param version
+	 * @return
+	 */
+	public FireType valueOfVersion(String version){
+		switch(version){
+			case "1": return FireType.FIRE1;
+			case "2": return FireType.FIRE2;
+			case "3": return FireType.FIRE3;
+			case "4": return FireType.FIRE4;
+			case "5": return FireType.FIRE5;
+			case "6": return FireType.FIRE6;
+			case "7": return FireType.FIRE7;
+			case "8": return FireType.FIRE8;
+			case "9": return FireType.FIRE9;
+			case "10": return FireType.FIRE10;
+			case "11": return FireType.FIRE11;
+			default: return FireType.FIRE1;
+		}        
+	}
+
 }

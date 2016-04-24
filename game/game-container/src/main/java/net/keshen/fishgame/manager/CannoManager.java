@@ -1,10 +1,14 @@
 package net.keshen.fishgame.manager;
 
 import java.util.Map;
-import java.util.Map.Entry;
 
+import net.keshen.base.basecomponet.GameConstant;
 import net.keshen.base.graphics.Bitmap;
+import net.keshen.base.surface.GameSurface;
+import net.keshen.container.ApplicationContext;
 import net.keshen.fishgame.componets.Cannon;
+import net.keshen.fishgame.enumration.FireType;
+import net.keshen.fishgame.manager.game.GameManager;
 import net.keshen.logger.Logger;
 import net.keshen.logger.LoggerManager;
 
@@ -17,18 +21,30 @@ public class CannoManager {
 
 	private Logger logger = LoggerManager.getLogger(getClass());
 	
-	private Cannon currentCannon;
-	private ImageManager manager = ImageManager.getImageManager();
+	private Map<FireType,Bitmap[]> fireBitmaps;
 	
-	public CannoManager(){
-		//init();
+	private ImageManager imageManager = ApplicationContext.getBean(ImageManager.class);
+	private static CannoManager cannoManager;
+	
+	private Cannon currentCannon;
+	
+	public static CannoManager newInstance(){
+		if(cannoManager==null){
+			cannoManager = new CannoManager();
+		}
+		return cannoManager;
+	}
+	
+	private CannoManager(){
+		
 	}
 	
 	//初始化
-	public void init(){
+	public CannoManager init(){
 		initCannon();
 		initBullet();
 		initNet();
+		return cannoManager;
 	}
 	//初始化渔网
 	private void initNet(){
@@ -40,30 +56,63 @@ public class CannoManager {
 	}
 	//初始化大炮
 	private void initCannon(){
-		Map<String,Bitmap> imageMap = manager.getBitmapsByImageConfig("fire");
-		//cannon = new Cannon(cannoImage);
-		Bitmap[] cannonImages = new Bitmap[imageMap.size()];
-		int t = 0;
-		for (Entry<String, Bitmap> images : imageMap.entrySet()) {
-			cannonImages[t] = images.getValue();
-			t++;
-		}
-		this.currentCannon.setCannoImage(cannonImages);
+		fireBitmaps = imageManager.getFireBitmap();
 		
-//		this.currentCannon.setCannoRotate_x(this.currentCannon.getPicWidth());
+		currentCannon = new Cannon(); 
+		currentCannon.setCannonImage(fireBitmaps.get(FireType.FIRE1));
+		currentCannon.setType(FireType.FIRE1);
 	}
 
 	/**
 	 * 更换小的型号的大炮
 	 */
 	public void downCannonVersion(){
-		//this.currentCannon.setCurrentImageId(currentImageId);
+		//当前型号是最小型号
+		if(currentCannon.getType().getVersion().equals(Cannon.MIN_VERSION)){
+			new Thread(new Runnable() {
+				
+				@Override
+				public void run() {
+					try {
+						float scale;
+						float pos;
+						for (int i = 0; i < 5; i++) {
+							scale = i*0.2f;
+							pos = (5-i)*0.2f;
+							currentCannon.getPicMatrix().setTranslate(GameConstant.getWidth()/2-currentCannon.getPicWidth()/2*pos,  GameConstant.getHeight()-currentCannon.getPicHeight()*pos/2-20);
+							currentCannon.getPicMatrix().setScale(pos, pos);
+							Thread.sleep(50);
+						}
+						currentCannon = new Cannon();
+						currentCannon.setCannonImage(fireBitmaps.get(FireType.FIRE10));
+						currentCannon.setType(FireType.FIRE10);
+						currentCannon.setDrawableName("fire");
+						GameSurface surface = ApplicationContext.getBean(GameSurface.class);
+						surface.updatePicLayer(GameSurface.CHANGE_MODEL_REMOVE, 1, currentCannon);
+						surface.updatePicLayer(GameSurface.CHANGE_MODEL_ADD, 1, currentCannon);
+						for (int i = 4; i >= 0; i--) {
+							scale = i*0.2f;
+							pos = (4-i)*0.2f;
+							currentCannon.getPicMatrix().setTranslate(GameConstant.getWidth()/2-currentCannon.getPicWidth()/2*pos,  GameConstant.getHeight()-currentCannon.getPicHeight()*pos/2-20);
+							currentCannon.getPicMatrix().setScale(pos, pos);
+							Thread.sleep(50);
+						}
+						
+					} catch (Exception e) {
+						logger.error(e);
+					}
+					
+				}
+			}).start();
+		}
 	}
 	/**
 	 * 增加大炮型号
 	 */
 	public void addCannonVersion(){
-		//this.currentCannon.setCurrentImageId(currentImageId);
+		if(currentCannon.getType().getVersion().equals(Cannon.MAX_VERSION)){
+			
+		}
 	}
 	/**
 	 * 
@@ -73,7 +122,9 @@ public class CannoManager {
 	}
 	
 	public static void main(String[] args) {
-		CannoManager cannoManager = new CannoManager();
+		GameManager.newInstance().initGame();
+		ImageManager imageManager = ApplicationContext.getBean(ImageManager.class);
+		Bitmap[] fires = imageManager.getFireBitmap().get(FireType.FIRE1);
 		
 	}
 }

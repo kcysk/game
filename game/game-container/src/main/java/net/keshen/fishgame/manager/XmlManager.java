@@ -105,26 +105,6 @@ public class XmlManager {
 		return Arrays.asList(getFishConfigPath().get("fishActConfig").split(";"));
 	}
 	
-	public static void main(String[] args) {
-//		Map<String, FishInfo> info = getFishInfo();
-//		for (Entry<String, FishInfo> string : info.entrySet()) {
-//			System.out.println(string.getKey());
-//		}
-		Map<String,String> configPathMap = getFishConfigPath();
-		for (String str : configPathMap.keySet()) {
-			if("fishActConfig".equals(str)){
-				
-				for (String str2 : configPathMap.get(str).split(";")) {
-					Map<String,Bitmap> maps = ImageManager.getImageManager().getBitmapsByImageConfig(str2);
-					for (String string : maps.keySet()) {
-						System.out.println(string);
-					}
-				}
-			}else if("fishInfoConfig".equals(str)){
-				
-			}
-		
-		}
-	}
+
 }
 

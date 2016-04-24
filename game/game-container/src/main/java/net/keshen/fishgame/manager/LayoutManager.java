@@ -2,6 +2,7 @@ package net.keshen.fishgame.manager;
 
 import net.keshen.base.basecomponet.Componet;
 import net.keshen.base.basecomponet.GameConstant;
+import net.keshen.container.ApplicationContext;
 import net.keshen.fishgame.componets.Bottom;
 import net.keshen.fishgame.componets.BottomGold;
 import net.keshen.fishgame.componets.BottomTime;
@@ -15,48 +16,33 @@ import net.keshen.fishgame.componets.Cannon;
  */
 public class LayoutManager {
 
-	private ComponetsManager componetsManager;
+	private ComponetsManager componetsManager = ApplicationContext.getBean(ComponetsManager.class);
+	private CannoManager cannoManager = ApplicationContext.getBean(CannoManager.class);
 	private static LayoutManager layoutManager;
-	private CannoManager cannoManager;
 
 	/**
 	 * 获取LayｏｕｔＭａｎａｇｅｒ
 	 * @return
 	 */
-	public static LayoutManager getLayoutManager(){
+	public static LayoutManager newInstance(){
 		if(layoutManager==null){
 			layoutManager = new LayoutManager();
 		}
 		return layoutManager;
 	}
 	
-	/**
-	 * IOC注入ComponetsManager实例
-	 * @param componetsManager
-	 */
-	public void setComponetsManager(ComponetsManager componetsManager){
-		this.componetsManager = componetsManager;
-	}
-	
-	/**
-	 * IOC注入CannoManager实例
-	 * @param cannoManager
-	 */
-	public void setCannoManager(CannoManager cannoManager){
-		this.cannoManager = cannoManager;
-	}
-	
 	private LayoutManager(){
 		
 	}
 	
-	public void setComponetsLayout(){
+	public LayoutManager setComponetsLayout(){
 		setCannonBottomLayout();
 		setCannonVersionAdd();
 		setCannonVersionRed();
 		setBottomGoldLayout();
 		setBottomTimeLayout();
-		//setCannoLayout();
+		setCannoLayout();
+		return layoutManager;
 	}
 	
 	// 设置大炮底座位置
@@ -87,7 +73,7 @@ public class LayoutManager {
 		Cannon cannon = cannoManager.getCurrentCannon();
 		cannon.setCannoRotate_x(componetsManager.getBottom().getLayout_x() + cannon.getPicWidth()/2);
 		cannon.setCannoRotate_y(componetsManager.getBottom().getLayout_y() + cannon.getPicHeight()/2);
-//		cannon.getPicMatrix().setTranslate(cannon.getR, y);
+		cannon.getPicMatrix().setTranslate(GameConstant.getWidth()/2 - cannon.getPicWidth()/2, GameConstant.getHeight()-cannon.getPicHeight());
 	}
 	
 	// 设置计时器位置

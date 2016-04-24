@@ -3,6 +3,7 @@ package net.keshen.fishgame.manager;
 
 import net.keshen.base.OnClickListener;
 import net.keshen.base.basecomponet.Componet;
+import net.keshen.container.ApplicationContext;
 import net.keshen.fishgame.componets.Background;
 import net.keshen.fishgame.componets.Bottom;
 import net.keshen.fishgame.componets.BottomGold;
@@ -24,10 +25,6 @@ public class ComponetsManager {
 	
 	private static ComponetsManager manager;
 	
-	public static void main(String[] args) {
-		logger.info("123");
-	}
-	private CannoManager cannoManager;
 	
 	private Bottom bottom;
 	private BottomGold bottomGold;
@@ -39,7 +36,7 @@ public class ComponetsManager {
 	private OnClickListener upListener;
 	private OnClickListener downListener;
 	
-	public static ComponetsManager getComponetsManager(){
+	public static ComponetsManager newInstance(){
 		if(manager==null){
 			manager = new ComponetsManager();
 		}
@@ -51,7 +48,7 @@ public class ComponetsManager {
 	}
 	
 	//初始化所有组件
-	private void init(){
+	private ComponetsManager init(){
 		logger.info("组件初始化中.....");
 		
 		//初始化背景
@@ -83,17 +80,9 @@ public class ComponetsManager {
 		redButton.setBg(ImageUtils.getBitmapByAssert(redButton.getDrawableName()));
 		((ButtonAdapter)redButton).addOnClickListener(this.downListener);
 		logger.info("组件初始化结束......");
-		
-		initCanno();
+		return manager;
 	}
 	
-	private void initCanno(){
-		//初始化大炮
-		Cannon cannon = new Cannon();
-		cannon.setDrawableName("fire");
-		
-//		cannon.setCannoImage(cannoImage);
-	}
 	/**
 	 * 获取大炮底座
 	 * @return
@@ -150,15 +139,9 @@ public class ComponetsManager {
 		this.downListener = downListener;
 	}
 	
-	/**
-	 * ＩＯＣ 注入大炮管理器
-	 * @param cannoManager
-	 */
-	public void setCannoManager(CannoManager cannoManager){
-		this.cannoManager = cannoManager;
-	}
 	
 	public Background getBackground() {
 		return background;
 	}
+
 }

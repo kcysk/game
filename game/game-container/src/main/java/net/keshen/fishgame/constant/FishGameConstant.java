@@ -80,4 +80,7 @@ public class FishGameConstant {
 	
 	public static final int FISH_RUN_SLEEP = 1000;
 	
+	
+	
+	
 }

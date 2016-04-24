@@ -4,7 +4,12 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 
 import net.keshen.base.basecomponet.GameConstant;
+import net.keshen.container.ApplicationContext;
 import net.keshen.fishgame.config.Configuration;
+import net.keshen.fishgame.manager.CannoManager;
+import net.keshen.fishgame.manager.ComponetsManager;
+import net.keshen.fishgame.manager.ImageManager;
+import net.keshen.fishgame.manager.LayoutManager;
 import net.keshen.logger.Logger;
 import net.keshen.logger.LoggerManager;
 
@@ -47,15 +52,18 @@ public class GameManager {
 		GameConstant.setFps(true);
 		GameConstant.setQuality(true);
 		GameConstant.setTime(true);
-		//GameConstant.setWidth((int)screenSize.getWidth());
-		GameConstant.setWidth(700);
+		GameConstant.setWidth((int)screenSize.getWidth());
+		//GameConstant.setWidth(700);
 		System.out.println("游戏窗口宽度："+GameConstant.getWidth());
-		//GameConstant.setHeight((int)screenSize.getHeight());
-		GameConstant.setHeight(500);
+		GameConstant.setHeight((int)screenSize.getHeight());
+		//GameConstant.setHeight(500);
 		System.out.println("游戏窗口高度："+GameConstant.getHeight());
 		
-		//Toolkit.getDefaultToolkit().
 		
+		ApplicationContext.putBean(ImageManager.class, ImageManager.getImageManager().init());
+		ApplicationContext.putBean(ComponetsManager.class, ComponetsManager.newInstance());
+		ApplicationContext.putBean(CannoManager.class, CannoManager.newInstance().init());
+		ApplicationContext.putBean(LayoutManager.class, LayoutManager.newInstance().setComponetsLayout());
 	}
 	
 	/**

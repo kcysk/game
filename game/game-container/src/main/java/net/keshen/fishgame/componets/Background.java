@@ -35,9 +35,6 @@ public class Background extends Componet{
 
 	
 	public void setBg(Bitmap bg) {
-		
 		super.setBg(ImageUtils.zoomBitmap(bg, GameConstant.getWidth(), GameConstant.getHeight()));
-		//super.setBg(ImageUtils.scaleBitmapByScreenSize(bg.getImage(), GameConstant.getWidth(), GameConstant.getHeight()));
-		System.out.println(getPicWidth()+":"+getPicHeight());
 	}
 }

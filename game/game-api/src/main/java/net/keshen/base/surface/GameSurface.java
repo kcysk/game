@@ -129,9 +129,10 @@ public class GameSurface extends JPanel{
 					//删除元素
 					for (Integer id : removeLayer.keySet()) {
 						try {
-							this.picLayer.get(id).removeAll(this.removeLayer.get(id));
+							this.picLayer.get(id).remove(this.removeLayer.get(id));
+							log.info("图层"+id+":"+"已移除"+componet.getDrawableName()+"元素");
 						} catch (Exception e) {
-							log.info("图层:"+id+"不存在,无法移除该图层内的元素!");
+							log.info("图层"+id+":"+"不存在,无法移除该图层内的元素!");
 						}
 					}
 					this.removeLayer.clear();
@@ -252,7 +253,7 @@ public class GameSurface extends JPanel{
 					}
 				}
 				try {
-					Thread.sleep(500);
+					Thread.sleep(80);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}

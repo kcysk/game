@@ -14,7 +14,7 @@ public class JMatrix implements Matrix{
 	private AffineTransform transForm = new AffineTransform();
 	
 	
-	public void setTranslate(int x, int y) {
+	public void setTranslate(float x, float y) {
 		transForm.setToTranslation(x, y);
 	}
 
@@ -30,7 +30,7 @@ public class JMatrix implements Matrix{
 
 	
 	public void setScale(double x, double y) {
-		transForm.setToScale(x, y);
+		transForm.scale(x, y);
 	}
 
 	public AffineTransform getTransForm() {

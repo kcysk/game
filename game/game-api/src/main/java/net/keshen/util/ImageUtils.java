@@ -85,7 +85,7 @@ public final class ImageUtils {
 	
 	public static final Bitmap getBitmapByAssertNoPath(String fileName){
 		try {
-			return new Bitmap(ImageIO.read(new File(System.getProperty(fileName))));
+			return zoomBitmap(ImageIO.read(new File(System.getProperty(fileName))), 1.2);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -145,7 +145,6 @@ public final class ImageUtils {
 		Graphics g = newImage.getGraphics();
 		g.drawImage(src.getImage(), 0, 0, newImage.getWidth(), newImage.getHeight(), 
 				0, 0, src.getWidth(), src.getHeight(), null);
-		System.out.println("约图片："+src.getWidth()+":"+src.getHeight());
 		return new Bitmap(newImage);
 	}
 }
