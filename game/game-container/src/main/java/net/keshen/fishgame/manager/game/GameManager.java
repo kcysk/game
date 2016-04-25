@@ -2,6 +2,8 @@ package net.keshen.fishgame.manager.game;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.util.ArrayList;
+import java.util.List;
 
 import net.keshen.base.basecomponet.GameConstant;
 import net.keshen.container.ApplicationContext;
@@ -10,8 +12,7 @@ import net.keshen.fishgame.manager.CannoManager;
 import net.keshen.fishgame.manager.ComponetsManager;
 import net.keshen.fishgame.manager.ImageManager;
 import net.keshen.fishgame.manager.LayoutManager;
-import net.keshen.logger.Logger;
-import net.keshen.logger.LoggerManager;
+import net.keshen.fishgame.model.HeadFish;
 
 
 /**
@@ -25,6 +26,8 @@ public class GameManager {
 	
 	private static GameManager gameManager;
 	
+	private List<HeadFish> shoal = new ArrayList<HeadFish>();
+	
 	private static boolean pause = false;
 	private static boolean run = true;
 	
@@ -34,6 +37,7 @@ public class GameManager {
 		if(gameManager==null)
 		{
 			gameManager = new GameManager();
+			ApplicationContext.putBean(GameManager.class, gameManager);
 		}
 		return gameManager;
 	}
@@ -96,4 +100,7 @@ public class GameManager {
 		run = false;
 	}
 	
+	public List<HeadFish> getShoals(){
+		return shoal;
+	}
 }

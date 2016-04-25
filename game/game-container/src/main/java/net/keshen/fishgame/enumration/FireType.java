@@ -44,7 +44,7 @@ public enum FireType {
 	 * @param version
 	 * @return
 	 */
-	public FireType valueOfVersion(String version){
+	public static FireType valueOfVersion(String version){
 		switch(version){
 			case "1": return FireType.FIRE1;
 			case "2": return FireType.FIRE2;

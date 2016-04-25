@@ -1,6 +1,10 @@
 package net.keshen.fishgame.info;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import net.keshen.fishgame.enumration.FishType;
+import net.keshen.fishgame.manager.XmlManager;
 
 /**
  * 鱼对应的配置信息：
@@ -10,6 +14,10 @@ import net.keshen.fishgame.enumration.FishType;
  */
 public class FishInfo {
 	
+	private static final Map<FishType,FishInfo> allInfos = new HashMap<FishType,FishInfo>();
+	
+	
+	private String fishName;
 	/**
 	 * 最大旋转角度
 	 */
@@ -100,5 +108,23 @@ public class FishInfo {
 	}
 	public void setType(FishType type) {
 		this.type = type;
+	}
+	
+	public String getFishName() {
+		return fishName;
+	}
+	public void setFishName(String fishName) {
+		this.fishName = fishName;
+	}
+
+	/**
+	 * 获取所有的FishInfo
+	 * @return
+	 */
+	public static Map<FishType,FishInfo> getAllFishInfos(){
+		if(allInfos.size()==0){
+			allInfos.putAll(XmlManager.getFishInfo());
+		}
+		return allInfos;
 	}
 }

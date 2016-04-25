@@ -9,6 +9,7 @@ import org.xmlpull.v1.XmlPullParser;
 
 import net.keshen.base.graphics.Bitmap;
 import net.keshen.fishgame.constant.FishGameConstant;
+import net.keshen.fishgame.enumration.FishType;
 import net.keshen.fishgame.info.FishInfo;
 import net.keshen.fishgame.utils.StringUtils;
 import net.keshen.fishgame.utils.XmlUtils;
@@ -47,8 +48,8 @@ public class XmlManager {
 	 * 以Map形式返回
 	 * @return
 	 */
-	public static Map<String,FishInfo> getFishInfo(){
-		Map<String,FishInfo> fishInfoMap = new HashMap<String, FishInfo>();
+	public static Map<FishType,FishInfo> getFishInfo(){
+		Map<FishType,FishInfo> fishInfoMap = new HashMap<FishType, FishInfo>();
 		String fishInfoPath = getFishConfigPath().get(FishGameConstant.KEY_FISH_INFO_CONFIG);
 		XmlPullParser xml = XmlUtils.getXmlPullParser(fishInfoPath, FishGameConstant.CONFIG_ENCODE);
 		try {
@@ -56,6 +57,7 @@ public class XmlManager {
 				FishInfo fishInfo = new FishInfo();
 				XmlUtils.goTagByName(xml, "string");
 				String fishName = XmlUtils.getCurrentTagValue(xml);
+				fishInfo.setFishName(fishName);
 				XmlUtils.goTagByName(xml, "dict");
 				//解析相关参数
 				XmlUtils.goTagByName(xml, "integer");
@@ -79,17 +81,9 @@ public class XmlManager {
 				XmlUtils.goTagByName(xml, "integer");
 				int catchProbability = Integer.parseInt(XmlUtils.getCurrentTagValue(xml));
 				fishInfo.setCatchProbability(catchProbability);
-				//
-				//switch(fishName){
-				//	case FishType.MACKEREL.getName():
-				//		fishInfo.setType(FishType.MACKEREL);
-				//		break;
-				//	case FishType.SNAPPER.getName():
-				//		fishInfo.setType(FishType.SNAPPER);
-				//		break;
-				//	case FishType.
-				//}
-				fishInfoMap.put(fishName, fishInfo);
+				
+				fishInfo.setType(FishType.getType(fishInfo.getFishName()));
+				fishInfoMap.put(fishInfo.getType(), fishInfo);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

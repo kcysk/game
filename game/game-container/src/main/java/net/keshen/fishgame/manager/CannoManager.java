@@ -68,51 +68,68 @@ public class CannoManager {
 	 */
 	public void downCannonVersion(){
 		//当前型号是最小型号
-		if(currentCannon.getType().getVersion().equals(Cannon.MIN_VERSION)){
-			new Thread(new Runnable() {
-				
-				@Override
-				public void run() {
-					try {
-						float scale;
-						float pos;
-						for (int i = 0; i < 5; i++) {
-							scale = i*0.2f;
-							pos = (5-i)*0.2f;
-							currentCannon.getPicMatrix().setTranslate(GameConstant.getWidth()/2-currentCannon.getPicWidth()/2*pos,  GameConstant.getHeight()-currentCannon.getPicHeight()*pos/2-20);
-							currentCannon.getPicMatrix().setScale(pos, pos);
-							Thread.sleep(50);
-						}
+		new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				try {
+					float scale;
+					float pos;
+					for (int i = 0; i < 5; i++) {
+						scale = i*0.2f;
+						pos = (5-i)*0.2f;
+						currentCannon.getPicMatrix().setTranslate(GameConstant.getWidth()/2-currentCannon.getPicWidth()/2*pos,  GameConstant.getHeight()-currentCannon.getPicHeight()*pos/2-20);
+						currentCannon.getPicMatrix().setScale(pos, pos);
+						Thread.sleep(50);
+					}
+					if(currentCannon.getType().getVersion().equals(Cannon.MIN_VERSION)){
 						currentCannon = new Cannon();
 						currentCannon.setCannonImage(fireBitmaps.get(FireType.FIRE10));
 						currentCannon.setType(FireType.FIRE10);
-						currentCannon.setDrawableName("fire");
-						GameSurface surface = ApplicationContext.getBean(GameSurface.class);
-						surface.updatePicLayer(GameSurface.CHANGE_MODEL_REMOVE, 1, currentCannon);
-						surface.updatePicLayer(GameSurface.CHANGE_MODEL_ADD, 1, currentCannon);
-						for (int i = 4; i >= 0; i--) {
-							scale = i*0.2f;
-							pos = (4-i)*0.2f;
-							currentCannon.getPicMatrix().setTranslate(GameConstant.getWidth()/2-currentCannon.getPicWidth()/2*pos,  GameConstant.getHeight()-currentCannon.getPicHeight()*pos/2-20);
-							currentCannon.getPicMatrix().setScale(pos, pos);
-							Thread.sleep(50);
-						}
-						
-					} catch (Exception e) {
-						logger.error(e);
+						currentCannon.setDrawableName("fire"+currentCannon.getType().getVersion());
+					}else{
+						int nextVersion = Integer.parseInt(currentCannon.getType().getVersion())+1;
+						FireType nextType = FireType.valueOfVersion(String.valueOf(nextVersion));
+						currentCannon = new Cannon();
+						currentCannon.setType(nextType);
+						currentCannon.setCannonImage(fireBitmaps.get(currentCannon.getType()));
+						currentCannon.setDrawableName("fire"+currentCannon.getType().getVersion());
+					}
+					GameSurface surface = ApplicationContext.getBean(GameSurface.class);
+					surface.updatePicLayer(GameSurface.CHANGE_MODEL_REMOVE, 1, currentCannon);
+					surface.updatePicLayer(GameSurface.CHANGE_MODEL_ADD, 1, currentCannon);
+					for (int i = 4; i >= 0; i--) {
+						scale = i*0.2f;
+						pos = (4-i)*0.2f;
+						currentCannon.getPicMatrix().setTranslate(GameConstant.getWidth()/2-currentCannon.getPicWidth()/2*pos,  GameConstant.getHeight()-currentCannon.getPicHeight()*pos/2-20);
+						currentCannon.getPicMatrix().setScale(pos, pos);
+						Thread.sleep(50);
 					}
 					
+				} catch (Exception e) {
+					logger.error(e);
 				}
-			}).start();
-		}
+				
+			}
+		}).start();
+		
 	}
 	/**
 	 * 增加大炮型号
 	 */
 	public void addCannonVersion(){
-		if(currentCannon.getType().getVersion().equals(Cannon.MAX_VERSION)){
-			
-		}
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				try {
+					if(currentCannon.getType().getVersion().equals(Cannon.MAX_VERSION)){
+						
+					}
+				} catch (Exception e) {
+					logger.error(e);
+				}
+			}
+		}).start();
 	}
 	/**
 	 * 

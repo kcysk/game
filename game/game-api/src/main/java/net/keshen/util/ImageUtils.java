@@ -85,7 +85,9 @@ public final class ImageUtils {
 	
 	public static final Bitmap getBitmapByAssertNoPath(String fileName){
 		try {
-			return zoomBitmap(ImageIO.read(new File(System.getProperty(fileName))), 1.2);
+			File f = new File(System.getProperty(fileName));
+			System.out.println(f.getAbsolutePath());
+			return zoomBitmap(ImageIO.read(f), 1.2);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
