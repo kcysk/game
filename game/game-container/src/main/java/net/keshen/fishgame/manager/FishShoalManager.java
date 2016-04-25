@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import myfishgame.info.ShoalOfFish;
+import net.keshen.base.basecomponet.GameConstant;
 import net.keshen.container.ApplicationContext;
 import net.keshen.fishgame.constant.FishGameConstant;
 import net.keshen.fishgame.enumration.FishType;
@@ -44,25 +44,21 @@ public class FishShoalManager {
 	 */
 	public void init(){
 		new Thread(new Runnable() {
-			
 			@Override
 			public void run() {
-				for (final int i=0; i < FishGameConstant.MAX_SHOALS_ON_SCREEN ; i++) {
+				for (int i=0; i < FishGameConstant.MAX_SHOALS_ON_SCREEN ; i++) {
 					final FishType type = randomCreateFishType();
-					new Thread(new Runnable() {
-						@Override
-						public void run() {
-							if(i<5){
-								while(FishType.SHARK.equals(type)
-										||FishType.WHALE.equals(type)
-										||FishType.MERMAID1.equals(type)
-										||FishType.MERMAID2.equals(type)){
-								createShoalOfFish(type);
-								}
-							}
-							
+					if(i<5){
+						while(!(FishType.SHARK.equals(type)
+							||FishType.WHALE.equals(type)
+							||FishType.MERMAID1.equals(type)
+							||FishType.MERMAID2.equals(type))){
+							createShoalOfFish(type);
 						}
-					}).start();
+					}
+					else{
+						createShoalOfFish(type);
+					}
 				}
 			}
 		}).start();
@@ -85,6 +81,33 @@ public class FishShoalManager {
 		}
 		headFish.setShoal(shoals);
 		((GameManager)ApplicationContext.getBean(GameManager.class)).getShoals().add(headFish);
+	}
+	
+	/**
+	 * 设置鱼群鱼之间的位置 
+	 */
+	private void setRandomLayoutOfShoalFish(final HeadFish headFish){
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				try {
+					
+					float fromY = headFish.getFishX();
+					int shoalSize = headFish.getShoal().size();
+					Fish flagFish;
+					float randomMaxY;
+					float randomMinY;
+					while(GameConstant.isRunning()){
+						while (!GameConstant.isPause() && shoalSize>1) {
+							
+							shoalSize--;
+						}
+					}
+				} catch (Exception e) {
+					logger.error(e);
+				}
+			}
+		}).start();
 	}
 	
 	/**

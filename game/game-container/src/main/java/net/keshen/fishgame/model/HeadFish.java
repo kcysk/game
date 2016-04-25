@@ -24,15 +24,15 @@ import net.keshen.fishgame.thread.FishRunThread;
 public class HeadFish{
 	
 	private boolean isNew;		//是否是新生成的鱼
-	private double fishX;			//鱼的x坐标
-	private double fishY;			//y坐标
-	private double lastX;				
-	private double lastY;			
+	private float fishX;			//鱼的x坐标
+	private float fishY;			//y坐标
+	private float lastX;				
+	private float lastY;			
 	
 	private int[] fishOutlinePoint;	//鱼的外接矩阵的主要点的x、y坐标
 	private List<Fish> shoal;		//鱼群
 	
-	private double currentRotate;	//当前旋转的角度
+	private float currentRotate;	//当前旋转的角度
 	private int rotateDirection;	//旋转的方向
 	
 	private FishRunThread runThread;//鱼游动线程
@@ -45,27 +45,27 @@ public class HeadFish{
 	public void setNew(boolean isNew) {
 		this.isNew = isNew;
 	}
-	public double getFishX() {
+	public float getFishX() {
 		return fishX;
 	}
-	public void setFishX(double fishX) {
+	public void setFishX(float fishX) {
 		this.lastX = this.fishX;
 		this.fishX = fishX;
 	}
-	public double getFishY() {
+	public float getFishY() {
 		return fishY;
 	}
-	public void setFishY(double fishY) {
+	public void setFishY(float fishY) {
 		this.lastY = this.fishY;
 		this.fishY = fishY;
 	}
-	public double getLastX() {
+	public float getLastX() {
 		return lastX;
 	}
-	public void setLastX(double lastX) {
+	public void setLastX(float lastX) {
 		this.lastX = lastX;
 	}
-	public double getLastY() {
+	public float getLastY() {
 		return lastY;
 	}
 	public void setLastY(int lastY) {
@@ -83,7 +83,7 @@ public class HeadFish{
 	public void setShoal(List<Fish> shoal) {
 		this.shoal = shoal;
 	}
-	public double getCurrentRotate() {
+	public float getCurrentRotate() {
 		return currentRotate;
 	}
 	public void setCurrentRotate(int currentRotate) {
