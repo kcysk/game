@@ -5,6 +5,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import net.keshen.fishgame.constant.FishGameConstant;
+import net.keshen.logger.Logger;
+import net.keshen.logger.LoggerManager;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -18,6 +20,8 @@ import org.xmlpull.v1.XmlPullParserFactory;
  */
 public final class XmlUtils {
 
+	private static final Logger logger = LoggerManager.getLogger(XmlUtils.class);
+	
 	public static final String getCurrentTagValue(XmlPullParser xml){
 		try {
 			int eventType = xml.next();
@@ -57,7 +61,7 @@ public final class XmlUtils {
 				evnentType = xml.next();
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error(e);
 		}
 		return false;
 	}

@@ -31,10 +31,13 @@ public class FishRunThread extends Thread {
 	public void run() {
 		try {
 			while (GameManager.isRunning()) {
-				while(GameManager.isRunning()&&!GameManager.isPause()){
+				while(!GameManager.isPause()&&headFish.getFish().isCanRun()){
 					//不需要划分鱼群的运动方向
-					headFish.setFishX(headFish.getFishX()+fishInfo.getActSpeed()*Math.sin(headFish.getCurrentRotate()));
-					headFish.setFishY(headFish.getFishX()+fishInfo.getActSpeed()*Math.cos(headFish.getCurrentRotate()));
+					if(Math.abs(headFish.getFishX() - headFish.getLastX())>){
+						
+					}
+					headFish.setFishX((float) (headFish.getFishX()+fishInfo.getActSpeed()*Math.sin(headFish.getCurrentRotate())));
+					headFish.setFishY((float) (headFish.getFishX()+fishInfo.getActSpeed()*Math.cos(headFish.getCurrentRotate())));
 					refreshOutlinePoint();
 					break;
 				}
@@ -48,12 +51,16 @@ public class FishRunThread extends Thread {
 	//刷新外接矩形的四个重要的坐标
 	private void refreshOutlinePoint(){
 		for (Fish fish : shoal) {
+			if(fish.isAlive()&&fish.isCanRun()){
+				continue;
+			}
 			fish.getFishOutRectPoint()[0] = (int) (headFish.getFishX()+fish.getDistHeadFishX());
 			fish.getFishOutRectPoint()[1] = (int) (headFish.getFishX()+fish.getDistHeadFishX()+fish.getPicWidth());
 			fish.getFishOutRectPoint()[2] = (int) (headFish.getFishY() + fish.getDistheadFishY());
 			fish.getFishOutRectPoint()[3] = (int) (headFish.getFishY() + fish.getDistheadFishY() +fish.getPicHeight());
 		}
 	}
+	
 	
 	//判断鱼是否被捕捉
 	private boolean isCatch(Fish fish){

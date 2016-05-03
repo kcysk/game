@@ -3,7 +3,9 @@ package net.keshen.fishgame.entity;
 import java.io.Serializable;
 
 /**
- * 所有移动物体的抽象类
+ * 这里定义 Left或者Right为空则方向为Down或者Up,反之亦然</br>
+ * 若Left或者Right and Down、Up 都不为空则为左上。。。
+ * 
  * @author shenke
  *
  */
@@ -21,14 +23,5 @@ public interface Movement extends Serializable{
 	public static final String MOVE_DIRECTION_LEFT = "L" ;
 	/**运动方向 右*/
 	public static final String MOVE_DIRECTION_RIGHT = "R" ;
-	/**运动方向 右上*/
-	public static final String MOVE_DIRECTION_RU = "RU";
-	/**运动方向 左上*/
-	public static final String MOVE_DIRECTION_LU = "LU";
-	/**运动方向 右下*/
-	public static final String MOVE_DIRECTION_RD = "RD";
-	/**运动方向 左下*/
-	public static final String MOVE_DIRECTION_LD = "LD";
-	
 	
 }

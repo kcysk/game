@@ -5,6 +5,7 @@ import net.keshen.base.graphics.Bitmap;
 import net.keshen.base.graphics.Matrix;
 import net.keshen.fishgame.entity.Movement;
 import net.keshen.fishgame.info.FishInfo;
+import net.keshen.fishgame.thread.ActPicThread;
 
 /**
  * @author shenke
@@ -23,13 +24,14 @@ public class Fish extends DrawableAdapter implements Movement{
 	
 	private FishInfo info;				//鱼的游动速度、价值、捕捉概率等
 	private HeadFish headFish;			//领头鱼
-	//TODO								//鱼游动的线程
+	private	ActPicThread actThread;		//鱼游动的线程
 	
+	private boolean isAct;				//是否有动作，包括游动和被捕获
 	private boolean canRun;				//是否可以游动
+	private boolean isCatch;			//是否被捕获			
 	private boolean isAlive;			//是否存活
 	private boolean outScreen;			//是否超出屏幕
 	private int currentActId;			//当前游动动作Id
-	private int catchCurrentActId;		//被捕捉时动作图片Id
 	private int distHeadFishX;			//距离领头鱼的X方向上的偏移量
 	private int distheadFishY;			//
 	
@@ -38,7 +40,8 @@ public class Fish extends DrawableAdapter implements Movement{
 	}
 	
 	public Fish() {
-		
+		isAlive = true;
+		outScreen = false;
 	}
 
 	public Matrix getPicMatrix() {
@@ -50,10 +53,23 @@ public class Fish extends DrawableAdapter implements Movement{
 			return actBitmap[currentActId];
 		}
 		else{
-			return catchActBitmap[catchCurrentActId];
+			return catchActBitmap[currentActId];
 		}
 	}
 
+	/**
+	 * 获取当前鱼的动作数量
+	 * @return
+	 */
+	public int getFishActs(){
+		if(isAlive){
+			return actBitmap.length;
+		}
+		else{
+			return catchActBitmap.length;
+		}
+	}
+	
 	public int getPicWidth() {
 		return getCurrentPic().getWidth();
 	}
@@ -70,11 +86,7 @@ public class Fish extends DrawableAdapter implements Movement{
 	 * 设置当前动作图片Id
 	 */
 	public void setCurrentActBitmapId(int currentActId) {
-		if(isAlive){
-			this.currentActId = currentActId;
-		}else{
-			this.catchCurrentActId = currentActId;
-		}
+		this.currentActId = currentActId;
 	}
 
 	public int getActBitmapLength() {
@@ -83,10 +95,6 @@ public class Fish extends DrawableAdapter implements Movement{
 
 	public void setActBitmap(Bitmap[] actBitmap) {
 		this.actBitmap = actBitmap;
-	}
-
-	public int getCatchActBitmapLength() {
-		return catchActBitmap.length;
 	}
 
 	public void setCatchActBitmap(Bitmap[] catchActBitmap) {
@@ -156,4 +164,33 @@ public class Fish extends DrawableAdapter implements Movement{
 	public void setDistheadFishY(int distheadFishY) {
 		this.distheadFishY = distheadFishY;
 	}
+
+	public ActPicThread getActThread() {
+		return actThread;
+	}
+
+	public void setActThread(ActPicThread actThread) {
+		this.actThread = actThread;
+	}
+
+	public boolean isAct() {
+		return isAct;
+	}
+
+	public void setAct(boolean isAct) {
+		this.isAct = isAct;
+	}
+
+	public boolean isCatch() {
+		return isCatch;
+	}
+
+	public void setCatch(boolean isCatch) {
+		this.isCatch = isCatch;
+	}
+
+	public int getCurrentActId() {
+		return currentActId;
+	}
+	
 }

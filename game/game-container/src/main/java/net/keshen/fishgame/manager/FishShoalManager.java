@@ -9,9 +9,11 @@ import net.keshen.container.ApplicationContext;
 import net.keshen.fishgame.constant.FishGameConstant;
 import net.keshen.fishgame.enumration.FishType;
 import net.keshen.fishgame.info.FishInfo;
+import net.keshen.fishgame.info.PartInfo;
 import net.keshen.fishgame.manager.game.GameManager;
 import net.keshen.fishgame.model.Fish;
 import net.keshen.fishgame.model.HeadFish;
+import net.keshen.fishgame.thread.ActPicThread;
 import net.keshen.logger.Logger;
 import net.keshen.logger.LoggerManager;
 
@@ -27,6 +29,8 @@ public class FishShoalManager {
 	private static FishShoalManager shoalManager;
 	
 	private FishManager fishManager = ApplicationContext.getBean(FishManager.class);
+	private GameManager gameManager = ApplicationContext.getBean(GameManager.class);
+	private PartManager partManager = ApplicationContext.getBean(PartManager.class);
 	
 	private FishShoalManager(){
 		
@@ -46,43 +50,70 @@ public class FishShoalManager {
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				for (int i=0; i < FishGameConstant.MAX_SHOALS_ON_SCREEN ; i++) {
-					final FishType type = randomCreateFishType();
-					if(i<5){
-						while(!(FishType.SHARK.equals(type)
-							||FishType.WHALE.equals(type)
-							||FishType.MERMAID1.equals(type)
-							||FishType.MERMAID2.equals(type))){
-							createShoalOfFish(type);
-						}
-					}
-					else{
-						createShoalOfFish(type);
-					}
+				PartInfo nowPart = partManager.getPartInfo(gameManager.getNowPart());
+				nowPart.getShowProbability();
+				for (int i=0; i < nowPart.getShoalSumInScreen() ; i++) {
+					FishType type = randomCreateFishType();
+					createShoalOfFish(type);
 				}
 			}
 		}).start();
 	}
 	
 	/**
-	 * 
+	 * 鱼群的创建思路是根据领头鱼决定的
 	 * @param type
 	 * @return
 	 */
-	public void createShoalOfFish(FishType type){
-		List<Fish> shoals = new ArrayList<Fish>();
-		
-		HeadFish headFish = new HeadFish();
-		headFish.setFish(fishManager.getFishByType(type));
-		FishInfo info = FishInfo.getAllFishInfos().get(type);
-		final int maxFishNum = info.getFishShoalMax();
-		for (int i = 0 ; i < maxFishNum ; i++) {
-			shoals.add(fishManager.getFishByType(type));
-		}
-		headFish.setShoal(shoals);
-		((GameManager)ApplicationContext.getBean(GameManager.class)).getShoals().add(headFish);
+	public void createShoalOfFish(final FishType type){
+		new Thread(){
+			@Override
+			public void run() {
+				List<Fish> shoals = new ArrayList<Fish>();
+				HeadFish headFish = createHeadFish(type);
+				//TODO headFish not Run
+				FishInfo info = FishInfo.getAllFishInfos().get(type);
+				final int maxFishNum = info.getFishShoalMax();
+				for (int i = 0 ; i < maxFishNum ; i++) {
+					shoals.add(fishManager.getFishByType(type));
+				}
+				headFish.setShoal(shoals);
+				((GameManager)ApplicationContext.getBean(GameManager.class)).getShoals().add(headFish);
+			}
+			
+		}.start();
 	}
 	
+	private HeadFish createHeadFish(FishType type){
+		HeadFish headFish = new HeadFish();
+		Fish fish = fishManager.getFishByType(type);
+		headFish.setFish(fish);
+		fish.setHeadFish(headFish);
+		fish.setCanRun(true);
+		setRandomHeadFishLayout(headFish);
+		return headFish;
+	}
+	
+	/**
+	 * 设置领头鱼的初始位置（随机）
+	 * @param headFish
+	 */
+	private void setRandomHeadFishLayout(final HeadFish headFish){
+		//偶数 Left
+		if(((int)Math.random()*100)%2==0){
+			headFish.setFishX(-headFish.getFish().getPicWidth());
+			//headFish.setFishY();
+		}
+		//奇数 Right
+		else{
+			headFish.setFishY(GameConstant.getWidth());
+		}
+	}
+	
+	
+	private void setFishRun(final HeadFish fish){
+		
+	}
 	/**
 	 * 设置鱼群鱼之间的位置 
 	 */

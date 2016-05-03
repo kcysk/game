@@ -2,6 +2,7 @@ package net.keshen.fishgame.model;
 
 import java.util.List;
 
+import net.keshen.fishgame.entity.Movement;
 import net.keshen.fishgame.thread.FishRunThread;
 /**              .
  * 				 .
@@ -21,7 +22,7 @@ import net.keshen.fishgame.thread.FishRunThread;
  * @author shenke
  * @date 2016-3-8 下午2:31:19
  */
-public class HeadFish{
+public class HeadFish implements Movement{
 	
 	private boolean isNew;		//是否是新生成的鱼
 	private float fishX;			//鱼的x坐标
@@ -34,6 +35,9 @@ public class HeadFish{
 	
 	private float currentRotate;	//当前旋转的角度
 	private int rotateDirection;	//旋转的方向
+	
+	private String directionX;
+	private String directionY;
 	
 	private FishRunThread runThread;//鱼游动线程
 	private Fish fish;				//当前鱼也应该属于鱼群
@@ -86,8 +90,8 @@ public class HeadFish{
 	public float getCurrentRotate() {
 		return currentRotate;
 	}
-	public void setCurrentRotate(int currentRotate) {
-		this.currentRotate = currentRotate;
+	public void setCurrentRotate(float newRoate) {
+		this.currentRotate = newRoate;
 	}
 	public int getRotateDirection() {
 		return rotateDirection;
@@ -107,5 +111,18 @@ public class HeadFish{
 	public void setFish(Fish fish) {
 		this.fish = fish;
 	}
+	public String getDirectionX() {
+		return directionX;
+	}
+	public void setDirectionX(String directionX) {
+		this.directionX = directionX;
+	}
+	public String getDirectionY() {
+		return directionY;
+	}
+	public void setDirectionY(String directionY) {
+		this.directionY = directionY;
+	}
+
 	
 }

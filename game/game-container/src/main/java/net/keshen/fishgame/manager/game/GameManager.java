@@ -31,6 +31,8 @@ public class GameManager {
 	private static boolean pause = false;
 	private static boolean run = true;
 	
+	private int nowPart ;
+	
 	private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	
 	public static GameManager newInstance(){
@@ -52,7 +54,7 @@ public class GameManager {
 		System.out.println("游戏初始化中。。。");
 		
 		Configuration.newInstance().init();
-		
+		nowPart = 1;
 		GameConstant.setFps(true);
 		GameConstant.setQuality(true);
 		GameConstant.setTime(true);
@@ -103,4 +105,13 @@ public class GameManager {
 	public List<HeadFish> getShoals(){
 		return shoal;
 	}
+
+	/**
+	 * 当前关卡
+	 * @return
+	 */
+	public int getNowPart() {
+		return nowPart;
+	}
+	
 }
